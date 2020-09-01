@@ -1,0 +1,20 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "kate's lab notebook"
+theme = "hugo-journal"
+enableGitInfo = false
+
+[Author]
+	name = "Kate Temkin"
+
+[Params]
+	mainSections = ["post"]
+	tagline = "unpolished technical \"content\" from @ktemkin"
+	description = "unpolished technical \"content\" from @ktemkin"
+	githubUsername = "ktemkin"
+	twitterUsername = "ktemkin"
+
+[Params.work]
+	jobTitle   = "lead digital witch"
+	company    = "Great Scott Gadgets"
+	companyURL = "https://greatscottgadgets.com"

@@ -1,0 +1,7 @@
+/public/
+/resources/_gen/
+
+hugo.exe
+hugo.linux
+hugo.darwin
+vendor

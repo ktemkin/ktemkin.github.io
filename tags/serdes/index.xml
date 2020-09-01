@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>serdes on kate&#39;s lab notebook</title>
+    <link>/tags/serdes/</link>
+    <description>Recent content in serdes on kate&#39;s lab notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Sep 2020 11:38:10 -0600</lastBuildDate>
+    
+	<atom:link href="/tags/serdes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>USB3 LFPS Using SerDes I/O</title>
+      <link>/post/serdes-lfps/</link>
+      <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
+      
+      <guid>/post/serdes-lfps/</guid>
+      <description>Placeholder content.</description>
+    </item>
+    
+  </channel>
+</rss>

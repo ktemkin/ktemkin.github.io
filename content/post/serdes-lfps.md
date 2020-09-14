@@ -104,7 +104,7 @@ A little more experimenting reveals the following configuration:
 .CH0_LDR_CORE2TX(tx_gpio_value)
 
 // Note that unlike the previous parameter, we want this _SEL to be 0.
-// This value appears to defers control to the CORE2TX_EN signal 
+// This value appears to defer control to the CORE2TX_EN signal 
 // (and likely to a bit in the SerDes registers).
 defparam DCU0_inst.CH0_LDR_CORE2TX_SEL = "0b0";
 ```

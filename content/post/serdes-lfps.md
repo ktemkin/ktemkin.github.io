@@ -8,7 +8,7 @@ tags: ['serdes', 'ecp5', 'usb3', 'lfps']
 Lately, I've been developing a USB3 stack, and a USB3 frontend using the ECP5 SerDes. The ECP5 SerDes seems _almost_ 
 perfect for USB3, which shares many of its implementation details with PCIe. However, there are a couple of hitches. 
 
-The more difficult to deal with is support forUSB3's _Low Frequency Periodic Signaling (LFPS)_. LFPS carries small bursts
+The more difficult to deal with is support for USB3's _Low Frequency Periodic Signaling (LFPS)_. LFPS carries small bursts
 of information via a slow, out-of-band signal, meant to be used before the high-speed USB3 link is established:
 
 {{< figure src="/post-media/serdes-lfps/lfps.png" title="from the USB3.2 specification; Figure 6-32" 

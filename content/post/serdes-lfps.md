@@ -38,7 +38,7 @@ waves. From the gaps between periods of electrical idle, it infers (_probably_) 
 On most FPGAs, this works surprisingly well; and is more than sufficient to detect the basic LFPS pulses necessary to
 bootstrap USB3 communcations. On the ECP5, this isn't the case.
 
-The ECP5's _Loss of Signal (LOS)_ detection is documented as follows:
+The ECP5's _Loss of Signal (LOS)_ detection-- used to detect electrical idle-- is documented as follows:
 
 {{< figure src="/post-media/serdes-lfps/los.png" title="Table 78 in TN1621-18; the ECP5 SerDes manual" 
     alt="table indicating that the parameters for the ECP5 SerDes' Loss-of-Signal detection is completely undocumented">}}

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>serdes on kate&#39;s lab notebook</title>
-    <link>/tags/serdes/</link>
-    <description>Recent content in serdes on kate&#39;s lab notebook</description>
+    <title>out-of-band on kate&#39;s lab notebook</title>
+    <link>/tags/out-of-band/</link>
+    <description>Recent content in out-of-band on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 14 Sep 2020 10:04:21 -0600</lastBuildDate>
     
-	<atom:link href="/tags/serdes/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/out-of-band/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,16 +20,6 @@
       <description>This post is a summary of the findings from my look at using the ECP5 SerDes for USB3 LFPS for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.
 Quick summary:
  In addition to using the ECP5&#39;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use. This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes operation; and thus requires a configured SerDes.</description>
-    </item>
-    
-    <item>
-      <title>USB3 LFPS Using ECP5 SerDes I/O</title>
-      <link>/post/serdes-lfps/</link>
-      <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
-      
-      <guid>/post/serdes-lfps/</guid>
-      <description>Lately, I&#39;ve been developing a USB3 stack, and a USB3 frontend using the ECP5 SerDes. The ECP5 SerDes seems almost perfect for USB3, which shares many of its implementation details with PCIe. However, there are a couple of hitches.
-The more difficult to deal with is support forUSB3&#39;s Low Frequency Periodic Signaling (LFPS). LFPS carries small bursts of information via a slow, out-of-band signal, meant to be used before the high-speed USB3 link is established:</description>
     </item>
     
   </channel>

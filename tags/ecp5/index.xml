@@ -6,10 +6,21 @@
     <description>Recent content in ecp5 on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Sep 2020 11:38:10 -0600</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2020 10:04:21 -0600</lastBuildDate>
     
 	<atom:link href="/tags/ecp5/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Summary: ECP5 SerDes Out-Of-Band Tx/Rx</title>
+      <link>/post/serdes-oob/</link>
+      <pubDate>Mon, 14 Sep 2020 10:04:21 -0600</pubDate>
+      
+      <guid>/post/serdes-oob/</guid>
+      <description>This post is a summary of the findings from my look at using the ECP5 SerDes for USB3 LFPS for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.
+Quick summary:
+ In addition to using the ECP5&#39;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use. This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes operation; and thus requires a configured SerDes.</description>
+    </item>
     
     <item>
       <title>USB3 LFPS Using ECP5 SerDes I/O</title>

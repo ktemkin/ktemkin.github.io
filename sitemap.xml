@@ -4,31 +4,41 @@
   
   <url>
     <loc>/tags/ecp5/</loc>
-    <lastmod>2020-09-01T11:38:10-06:00</lastmod>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
-    <lastmod>2020-09-01T11:38:10-06:00</lastmod>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/lfps/</loc>
-    <lastmod>2020-09-01T11:38:10-06:00</lastmod>
+    <loc>/tags/out-of-band/</loc>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-09-01T11:38:10-06:00</lastmod>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/serdes/</loc>
-    <lastmod>2020-09-01T11:38:10-06:00</lastmod>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/serdes-oob/</loc>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
+    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/lfps/</loc>
     <lastmod>2020-09-01T11:38:10-06:00</lastmod>
   </url>
   

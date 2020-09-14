@@ -227,3 +227,14 @@ h6 {
 
 .hljs {
   font-size: .875rem; }
+
+table, th, td {
+  border: 1px solid #686868;
+  border-collapse: collapse;
+  padding: 8px;
+  margin-bottom: 2em; }
+  table code, th code, td code {
+    background: none; }
+
+th {
+  background-color: #eee; }

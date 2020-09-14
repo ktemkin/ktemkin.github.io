@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Kate Temkin">
+  <meta property="og:url" content="/post/serdes-oob/">
+
+  <title>Summary: ECP5 SerDes Out-Of-Band Tx/Rx - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="Summary: ECP5 SerDes Out-Of-Band Tx/Rx - kate&#39;s lab notebook">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="kate&#39;s lab notebook">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Summary: ECP5 SerDes Out-Of-Band Tx/Rx</h1>
+       
+<span class="tags">
+   <a itemprop="sameAs" href="/tags/serdes/">serdes</a> <a itemprop="sameAs" href="/tags/ecp5/">ecp5</a> <a itemprop="sameAs" href="/tags/out-of-band/">out-of-band</a></span>
+
+
+      <time class="post-date" datetime="2020-09-14 10:04:21 -0600">14 Sep 2020</time>
+    </header>
+
+    <p><em>This post is a summary of the findings from <a href="/post/serdes-lfps/">my look at using the ECP5 SerDes for USB3 LFPS</a> for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.</em></p>
+<p>Quick summary:</p>
+<ul>
+<li>In addition to using the ECP5's SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use.</li>
+<li>This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes
+operation; and thus requires a configured SerDes.</li>
+</ul>
+<h4 id="documentation">Documentation</h4>
+<p>To use this functionality, add the following to the invocation of the SerDES <code>DCUA</code> block, replacing <code>CHX</code> with your channel number:</p>
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="center">type</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>CHX_LDR_RX2CORE_SEL</code></td>
+<td align="center">parameter</td>
+<td>Set this to <code>1</code> to enable receiving out-of-band data; works in parallel with normal SerDes operation.</td>
+</tr>
+<tr>
+<td align="left"><code>CHX_LDR_RX2CORE</code></td>
+<td align="center">output</td>
+<td>When <code>CHX_LDR_RX2CORE1_SEL</code> is set, this carries input value from the SerDes Rx input. Captured post differential input, and thus is single-ended.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><code>CHX_LDR_CORE2TX_SEL</code></td>
+<td align="center">parameter</td>
+<td>Set this to <code>1</code> to drive the SerDes Tx output directly; remains in affect until overridden via a <em>SerDes Client Interface</em> register. You most likely want to leave this at <code>0</code>.</td>
+</tr>
+<tr>
+<td align="left"><code>CHX_FFC_LDR_CORE2TX_EN</code></td>
+<td align="center">input</td>
+<td>When <code>CHX_LDR_CORE2TX_SEL</code> is <code>0</code>, this controls whether the SerDes Tx output is driven by the SerDes (<code>0</code>) or by the <code>CHX_LDR_CORE2TX</code> signal (<code>1</code>).</td>
+</tr>
+<tr>
+<td align="left"><code>CHX_LDR_CORE2TX</code></td>
+<td align="center">input</td>
+<td>When this is enabled by either <code>CHX_LDR_CORE2TX_SEL</code> or <code>CHX_FFC_LDR_CORE2TX_EN</code>, the value provided to this signal is directly routed to the SerDes Tx output.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="warning">Warning</h4>
+<p>These descriptions are based on my initial experiments; and should be taken with a grain of salt. :)</p>
+
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="/">
+          <span itemprop="name">Kate Temkin</span>
+
+          <span>,</span>
+          <span itemprop="jobTitle">lead digital witch</span> at
+          <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="https://greatscottgadgets.com"><span itemprop="name">Great Scott Gadgets</span></a>.</span><br>
+
+          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
+
+
+          <a itemprop="sameAs" href="https://github.com/ktemkin" title="GitHub">GitHub</a>
+
+          <a itemprop="sameAs" href="https://twitter.com/ktemkin" title="Twitter">Twitter</a>
+
+          
+        </span>
+
+        
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; 2020 Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

@@ -6,7 +6,7 @@
     <description>Recent content in Tags on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Sep 2020 11:38:10 -0600</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2020 10:04:21 -0600</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,27 @@
     <item>
       <title>ecp5</title>
       <link>/tags/ecp5/</link>
-      <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
+      <pubDate>Mon, 14 Sep 2020 10:04:21 -0600</pubDate>
       
       <guid>/tags/ecp5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>out-of-band</title>
+      <link>/tags/out-of-band/</link>
+      <pubDate>Mon, 14 Sep 2020 10:04:21 -0600</pubDate>
+      
+      <guid>/tags/out-of-band/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>serdes</title>
+      <link>/tags/serdes/</link>
+      <pubDate>Mon, 14 Sep 2020 10:04:21 -0600</pubDate>
+      
+      <guid>/tags/serdes/</guid>
       <description></description>
     </item>
     
@@ -26,15 +44,6 @@
       <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
       
       <guid>/tags/lfps/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>serdes</title>
-      <link>/tags/serdes/</link>
-      <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
-      
-      <guid>/tags/serdes/</guid>
       <description></description>
     </item>
     

@@ -69,6 +69,10 @@ figcaption {
   figcaption .original::before {
     content: ' ';
     display: block; }
+  figcaption h4 {
+    font-weight: normal;
+    font-size: .9rem;
+    font-style: italic; }
 
 img {
   max-width: 100%; }

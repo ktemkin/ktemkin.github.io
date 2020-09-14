@@ -315,3 +315,19 @@ h6 {
 .hljs {
   font-size: .875rem;
 }
+
+table, th, td {
+  border: 1px solid #686868;
+  border-collapse: collapse;
+  padding: 8px;
+
+  code {
+    background: none;
+  }
+
+  margin-bottom: 2em;
+}
+
+th {
+  background-color: #eee;
+}

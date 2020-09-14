@@ -5,4 +5,4 @@ hugo.exe
 hugo.linux
 hugo.darwin
 vendor
-.sass_cache
+themes/hugo-journal/.sass_cache

@@ -9,7 +9,7 @@
           <span itemprop="jobTitle">{{- .Site.Params.work.jobTitle -}}</span> at
           <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="{{ .Site.Params.work.companyUrl }}"><span itemprop="name">
             {{- .Site.Params.work.company -}}
-          </span></a></span>
+          </span></a>.</span>
           {{- end -}}
 
           <br>
@@ -31,6 +31,11 @@
         </span>
 
         <!-- {{ hugo.BuildDate }} -->
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; {{ now.Format "2006"}} Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
       </footer>
     </div>
 

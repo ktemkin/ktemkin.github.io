@@ -10,8 +10,8 @@
   <meta name="author" content="Kate Temkin">
   <meta property="og:url" content="/post/serdes-lfps/">
 
-  <title>USB3 LFPS Using SerDes I/O - kate&#39;s lab notebook</title>
-  <meta property="og:title" content="USB3 LFPS Using SerDes I/O - kate&#39;s lab notebook">
+  <title>USB3 LFPS Using ECP5 SerDes I/O - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="USB3 LFPS Using ECP5 SerDes I/O - kate&#39;s lab notebook">
   <meta property="og:type" content="article">
   <meta name="description" content="">
 
@@ -32,16 +32,118 @@
 
   <article class="post">
     <header class="post-header">
-      <h1 class="post-title">USB3 LFPS Using SerDes I/O</h1>
+      <h1 class="post-title">USB3 LFPS Using ECP5 SerDes I/O</h1>
        
 <span class="tags">
-   <a itemprop="sameAs" href="/tags/serdes/">serdes</a> <a itemprop="sameAs" href="/tags/ecp5/">ecp5</a> <a itemprop="sameAs" href="/tags/usb3/">usb3</a></span>
+   <a itemprop="sameAs" href="/tags/serdes/">serdes</a> <a itemprop="sameAs" href="/tags/ecp5/">ecp5</a> <a itemprop="sameAs" href="/tags/usb3/">usb3</a> <a itemprop="sameAs" href="/tags/lfps/">lfps</a></span>
 
 
       <time class="post-date" datetime="2020-09-01 11:38:10 -0600">01 Sep 2020</time>
     </header>
 
-    <p>Placeholder content.</p>
+    <p>Lately, I've been developing a USB3 stack, and a USB3 frontend using the ECP5 SerDes. The ECP5 SerDes seems <em>almost</em>
+perfect for USB3, which shares many of its implementation details with PCIe. However, there are a couple of hitches.</p>
+<p>The more difficult to deal with is support forUSB3's <em>Low Frequency Periodic Signaling (LFPS)</em>. LFPS carries small bursts
+of information via a slow, out-of-band signal, meant to be used before the high-speed USB3 link is established:</p>
+<figure>
+    <img src="/post-media/serdes-lfps/lfps.png"
+         alt="depiction of LFPS bursts over time; including small square wave bursts separated by periods of idle"/> <figcaption>
+            <h4>from the USB3.2 specification; Figure 6-32</h4>
+        </figcaption>
+</figure>
+
+<p>LFPS data is conveyed by short bursts of square-wave data, followed by periods of electrical idle. The information
+carried by each burst is encoded in the total length of each square-wave burst, and in the time period that elapses
+between each burst.</p>
+<h4 id="transmitting-lfps-bursts">Transmitting LFPS Bursts</h4>
+<p>Transmitting these signals with a SerDes is relatively straightforward. Assuming one can bypass the SerDes&rsquo; typical
+encoding, one can fill the SerDes&rsquo; buffers with long strings of <code>1</code>'s and <code>0</code>'s, resulting in square waves that can
+be recognized by the other side of the USB3 link.</p>
+<h4 id="receiving-lfps-bursts-probably">Receiving LFPS Bursts, Probably</h4>
+<p><em>Receiving</em> these signals, however, can be a real challenge, as they're not in the form the SerDes expects. In addition
+to being unencoded and significantly lower frequency, they also lack the frequent transitions necessary for the SerDes
+to recover a clock signal.</p>
+<p>The <a href="https://twitter.com/enjoy_digital/usb3_pipe"><code>usb3_pipe</code> design by Enjoy Digital</a> works around this problem in an
+interesting way: instead of directly detecting the LFPS square waves; the <code>usb3_pipe</code> design detects only the periods of
+electrical idle; and assumes that the short gaps between periods of electrical idle must be filled with valid LFPS square
+waves. From the gaps between periods of electrical idle, it infers (<em>probably</em>) the lengths of each burst.</p>
+<p>On most FPGAs, this works surprisingly well; and is more than sufficient to detect the basic LFPS pulses necessary to
+bootstrap USB3 communcations. On the ECP5, this isn't the case.</p>
+<p>The ECP5's <em>Loss of Signal (LOS)</em> detection is documented as follows:</p>
+<figure>
+    <img src="/post-media/serdes-lfps/los.png"
+         alt="table indicating that the parameters for the ECP5 SerDes&#39; Loss-of-Signal detection is completely undocumented"/> <figcaption>
+            <h4>Table 78 in TN1621-18; the ECP5 SerDes manual</h4>
+        </figcaption>
+</figure>
+
+<p>In addition to being undocumented to the point where reverse engineering is required for use, the ECP5's <em>Loss-of-Signal</em>
+detection gives the appearance of being rather overzealous &ndash; routinely detecting loss-of-signal during normal use, no matter
+which of these <code>TBD</code> values are applied. As a result, using <code>usb3_pipe</code>'s LFPS-detection method seems difficult to use reliably
+on the ECP5.</p>
+<h4 id="receiving-lfps-bursts-definitely">Receiving LFPS Bursts, Definitely</h4>
+<p>Fortunately, it seems there's another answer: the ECP5's <em>SerDes Reference Manual</em> alludes to a technique for generating
+and capturing simple out-of-band signals:</p>
+<blockquote>
+<p>There is an input per channel RXD_LDR, low data rate single-ended input from the RX buffer to the FPGA core. In the  core  a  low-speed  Clock  Data  Recovery  (CDR)  block  or  a  Data  Recovery  Unit  (DRU)  can  be  built  using  soft  logic. A channel register bit, RXD_LDR_EN, can enable this data path. If enabled by another register bit, a signal from the FPGA can also enable this in LFE5UM/LFE5UM5G.</p>
+</blockquote>
+<blockquote>
+<p>In  the  transmit  direction,  it  is  also  possible  to  use  a  serializer  built  in  soft  logic  in  the  FPGA  core  and  use  the  TXD_LDR pin to send data into the SERDES. It will be muxed in at a point just before the de-emphasis logic near where the regular high-speed SERDES path is muxed with the boundary scan path. This is shown conceptually in Figure 19. The low data rate path can be selected by setting a channel register bit, TX_LDR_EN.</p>
+</blockquote>
+<p>Unfortunately, the reference manual does not document these features further; so I was forced to check the SerDes code generated
+by <em>Lattice Diamond</em>&lsquo;s PCIe IP in order to identify how to use these features. Fortunately, the relevant inputs and parameters are easily identified in the generated Verilog:</p>
+<pre><code>// &lt;snip&gt;
+.CH0_LDR_RX2CORE(n101),
+.CH1_LDR_RX2CORE(n112),
+.CH0_FFC_LDR_CORE2TX_EN(1'b0), 
+.CH1_FFC_LDR_CORE2TX_EN(1'b0),
+.CH0_LDR_CORE2TX(1'b0), 
+.CH1_LDR_CORE2TX(1'b0)
+
+// &lt;snip&gt;
+defparam DCU0_inst.CH0_LDR_RX2CORE_SEL = &quot;0b0&quot;;
+defparam DCU0_inst.CH0_LDR_CORE2TX_SEL = &quot;0b0&quot;;
+defparam DCU0_inst.CH1_LDR_RX2CORE_SEL = &quot;0b0&quot;;
+defparam DCU0_inst.CH1_LDR_CORE2TX_SEL = &quot;0b0&quot;;
+</code></pre><p>With a little bit of experimenting, I was able to come up with the following general configuration for reciept,
+which works nicely for capturing LFPS bursts.</p>
+<pre><code>// Output signal from the module, in Verilog syntax.
+// Carries the logic value currently seen at the SerDes inputs, 
+// translated to a single-ended value.
+.CH0_LDR_RX2CORE(rx_gpio),
+
+// Parameter; enables driving the `rx_gpio` signal.
+defparam DCU0_inst.CH0_LDR_RX2CORE_SEL = &quot;0b1&quot;;
+</code></pre><p>As a bonus, this also shows a path that allows us to drive the SerDes transmitter as though it were a simple GPIO output;
+allowing us to send our LFPS signaling without workarounds like squishing long strings of <code>1</code>'s or <code>0</code>s into the SerDes.
+A little more experimenting reveals the following configuration:</p>
+<pre><code>// Input signals to the module. The CORE2TX_EN signal determines
+// when the output is driven by our out-of-band &quot;gpio&quot; -- where `1`
+// means &quot;use the out of band signal&quot;. With this input set, the 
+// CORE2TX signal drives the Tx output buffer directly. When it's 
+// not set, the SerDes operates normally.
+.CH0_FFC_LDR_CORE2TX_EN(tx_gpio_enable), 
+.CH0_LDR_CORE2TX(tx_gpio_value)
+
+// Note that unlike the previous parameter, we want this _SEL to be 0.
+// This value appears to defers control to the CORE2TX_EN signal 
+// (and likely to a bit in the SerDes registers).
+defparam DCU0_inst.CH0_LDR_CORE2TX_SEL = &quot;0b0&quot;;
+</code></pre><p>With these set up, the SerDes seems to send and receive our out-of-band LFPS signals quite readily:</p>
+<figure>
+    <img src="/post-media/serdes-lfps/serdes_out_of_band_lfps.png"
+         alt="oscilloscope display showing correct-appearing LFPS bursts"/> <figcaption>
+            <h4>Scope capture of LFPS bursts being transmitted and received</h4>
+        </figcaption>
+</figure>
+
+<p>In this diagram:</p>
+<ul>
+<li>The top (yellow) signal shows the tail end of an LFPS burst generated using the SerDes out-of-band I/O; and</li>
+<li>The bottom (blue) signal shows the value of the received out-of-band &ldquo;GPIO&rdquo;. In this case, I've looped back the
+SerDes Tx port to its Rx; which means that bottom signal is the time-delayed version of the top.</li>
+</ul>
+<p>In the end, this is a signficantly nicer way of transmitting and receiving LFPS!</p>
 
 
   </article>

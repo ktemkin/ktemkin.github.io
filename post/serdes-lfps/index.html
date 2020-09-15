@@ -68,7 +68,7 @@ interesting way: instead of directly detecting the LFPS square waves; the <code>
 electrical idle; and assumes that the short gaps between periods of electrical idle must be filled with valid LFPS square
 waves. From the gaps between periods of electrical idle, it infers (<em>probably</em>) the lengths of each burst.</p>
 <p>On most FPGAs, this works surprisingly well; and is more than sufficient to detect the basic LFPS pulses necessary to
-bootstrap USB3 communcations. On the ECP5, this isn't the case.</p>
+bootstrap USB3 communications. On the ECP5, this isn't the case.</p>
 <p>The ECP5's <em>Loss of Signal (LOS)</em> detection&ndash; used to detect electrical idle&ndash; is documented as follows:</p>
 <figure>
     <img src="/post-media/serdes-lfps/los.png"
@@ -105,7 +105,7 @@ defparam DCU0_inst.CH0_LDR_RX2CORE_SEL = &quot;0b0&quot;;
 defparam DCU0_inst.CH0_LDR_CORE2TX_SEL = &quot;0b0&quot;;
 defparam DCU0_inst.CH1_LDR_RX2CORE_SEL = &quot;0b0&quot;;
 defparam DCU0_inst.CH1_LDR_CORE2TX_SEL = &quot;0b0&quot;;
-</code></pre><p>With a little bit of experimenting, I was able to come up with the following general configuration for reciept,
+</code></pre><p>With a little bit of experimenting, I was able to come up with the following general configuration for receipt,
 which works nicely for capturing LFPS bursts.</p>
 <pre><code>// Output signal from the module, in Verilog syntax.
 // Carries the logic value currently seen at the SerDes inputs, 
@@ -143,7 +143,7 @@ defparam DCU0_inst.CH0_LDR_CORE2TX_SEL = &quot;0b0&quot;;
 <li>The bottom (blue) signal shows the value of the received out-of-band &ldquo;GPIO&rdquo;. In this case, I've looped back the
 SerDes Tx port to its Rx; which means that bottom signal is the time-delayed version of the top.</li>
 </ul>
-<p>In the end, this is a signficantly nicer way of transmitting and receiving LFPS!</p>
+<p>In the end, this is a significantly nicer way of transmitting and receiving LFPS!</p>
 
 
   </article>

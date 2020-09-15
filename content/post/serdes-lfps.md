@@ -36,7 +36,7 @@ electrical idle; and assumes that the short gaps between periods of electrical i
 waves. From the gaps between periods of electrical idle, it infers (_probably_) the lengths of each burst.
 
 On most FPGAs, this works surprisingly well; and is more than sufficient to detect the basic LFPS pulses necessary to
-bootstrap USB3 communcations. On the ECP5, this isn't the case.
+bootstrap USB3 communications. On the ECP5, this isn't the case.
 
 The ECP5's _Loss of Signal (LOS)_ detection-- used to detect electrical idle-- is documented as follows:
 
@@ -76,7 +76,7 @@ defparam DCU0_inst.CH1_LDR_RX2CORE_SEL = "0b0";
 defparam DCU0_inst.CH1_LDR_CORE2TX_SEL = "0b0";
 ```
 
-With a little bit of experimenting, I was able to come up with the following general configuration for reciept,
+With a little bit of experimenting, I was able to come up with the following general configuration for receipt,
 which works nicely for capturing LFPS bursts.
 
 ```
@@ -121,4 +121,4 @@ In this diagram:
 - The bottom (blue) signal shows the value of the received out-of-band "GPIO". In this case, I've looped back the
   SerDes Tx port to its Rx; which means that bottom signal is the time-delayed version of the top.
 
-In the end, this is a signficantly nicer way of transmitting and receiving LFPS!
+In the end, this is a significantly nicer way of transmitting and receiving LFPS!

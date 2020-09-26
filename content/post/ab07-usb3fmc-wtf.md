@@ -72,7 +72,7 @@ and probed the PHY side of one of those termination resistors:
 The frequency and amplitude of this signal are pretty in-line with what you'd expect: the amplitude corresponds
 nicely to a decently healthy logic `1`. But how does the signal look on the problematic bit?
 
-I adjusted the FPGA design so it only squired a wave into the problematic bit; and probed in line until I found it:
+I adjusted the FPGA design so it only squirted a wave into the problematic bit; and probed in line until I found it:
 
 {{< figure src="/post-media/ab07-usb3fmc-wtf/phy_tx_unhealthy.png" 
     title="A *lot* less happy. Still AC couled for display."

@@ -6,3 +6,4 @@ hugo.linux
 hugo.darwin
 vendor
 themes/hugo-journal/.sass_cache
+.vscode

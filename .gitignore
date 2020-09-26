@@ -7,3 +7,4 @@ hugo.darwin
 vendor
 themes/hugo-journal/.sass_cache
 .vscode
+.DS_Store

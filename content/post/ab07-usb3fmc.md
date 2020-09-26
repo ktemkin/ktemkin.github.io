@@ -17,6 +17,15 @@ or the [Design Gateway AB07-USBFMC](https://www.mouser.com/ProductDetail/Design-
 Thanks to [Tim Ansell](https://twitter.com/mithro/), I've been able to get my hands on the _AB07-USBFMC_; this quick
 post summarizes my findings so far working with the board.
 
+### The Major WTF
+
+It turns out the board I received had a pretty major -- but easily correctable -- issue: one of its termination
+resistors was dramatically the wrong size, leaving one out of every sixteen bits sent stuck at zero.
+
+I've documented the whole debacle [here]({{< relref "ab07-usb3fmc-wtf.md" >}}) for your reading (dis)pleasure.
+
+### Other Notes & Findings
+
 * This is essentially a very expensive [TUSB1310A](https://www.ti.com/product/TUSB1310A) breakout board.
   * The board is documented only for use with _their own_ USB3 IP core; which means it has some undocumented surprises
     for anyone who -- like me -- is running their own USB experiments.

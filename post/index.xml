@@ -6,10 +6,20 @@
     <description>Recent content in Posts on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Sep 2020 10:04:21 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 25 Sep 2020 21:34:32 -0600</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AB07-USB3FMC Notes &amp; Oddities</title>
+      <link>/post/ab07-usb3fmc/</link>
+      <pubDate>Fri, 25 Sep 2020 21:34:32 -0600</pubDate>
+      
+      <guid>/post/ab07-usb3fmc/</guid>
+      <description>If you&#39;re looking to play with commercial USB3 evaluation hardware &amp;ndash; that is, if you&#39;re looking to get a board someone else has designed and built, rather than soldering up your own or experimenting with 5G SerDes &amp;ndash; there seem to be two options available: the HiTech Global FMC_USB3 ($795 USD), or the Design Gateway AB07-USBFMC ($1,650 USD).
+  The USB3FMC sitting atop the Digilent Nexys Video FPGA board   Thanks to Tim Ansell, I&#39;ve been able to get my hands on the AB07-USBFMC; this quick post summarizes my findings so far working with the board.</description>
+    </item>
     
     <item>
       <title>Summary: ECP5 SerDes Out-Of-Band Tx/Rx</title>

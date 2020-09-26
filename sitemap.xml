@@ -3,22 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/ab07-usb3fmc/</loc>
+    <lastmod>2020-09-25T21:34:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-09-25T21:34:32-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2020-09-25T21:34:32-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tags/ecp5/</loc>
     <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/out-of-band/</loc>
-    <lastmod>2020-09-14T10:04:21-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
     <lastmod>2020-09-14T10:04:21-06:00</lastmod>
   </url>
   

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Kate Temkin">
+  <meta property="og:url" content="/post/ab07-usb3fmc/">
+
+  <title>AB07-USB3FMC Notes &amp; Oddities - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="AB07-USB3FMC Notes &amp; Oddities - kate&#39;s lab notebook">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="kate&#39;s lab notebook">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">AB07-USB3FMC Notes &amp; Oddities</h1>
+       
+
+      <time class="post-date" datetime="2020-09-25 21:34:32 -0600">25 Sep 2020</time>
+    </header>
+
+    <p>If you're looking to play with <em>commercial</em> USB3 evaluation hardware &ndash; that is, if you're looking to get a
+board someone else has designed and built, rather than <a href="https://github.com/mossmann/daisho">soldering up your own</a> or <a href="https://github.com/enjoy-digital/usb3_pipe">experimenting with</a>
+<a href="https://github.com/greatscottgadgets/luna/tree/master/luna/gateware/interface/serdes_phy">5G SerDes</a> &ndash; there seem
+to be two options available: the <a href="http://www.hitechglobal.com/FMCModules/FMC_USB3.htm">HiTech Global FMC_USB3</a> ($795 USD),
+or the <a href="https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC?qs=sGAEpiMZZMu3sxpa5v1qrv1geWH1899TAy5w93UhpbE%3D">Design Gateway AB07-USBFMC</a> ($1,650 USD).</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc/usb3_fmc.jpg"
+         alt="the USB3FMC carrier board is mounted atop another FPGA board"/> <figcaption>
+            <h4>The USB3FMC sitting atop the Digilent Nexys Video FPGA board</h4>
+        </figcaption>
+</figure>
+
+<p>Thanks to <a href="https://twitter.com/mithro/">Tim Ansell</a>, I've been able to get my hands on the <em>AB07-USBFMC</em>; this quick
+post summarizes my findings so far working with the board.</p>
+<ul>
+<li>This is essentially a very expensive <a href="https://www.ti.com/product/TUSB1310A">TUSB1310A</a> breakout board.
+<ul>
+<li>The board is documented only for use with <em>their own</em> USB3 IP core; which means it has some undocumented surprises
+for anyone who &ndash; like me &ndash; is running their own USB experiments.</li>
+</ul>
+</li>
+<li>Despite the TUSB1310A requiring 1V8 signaling; the available board <strong>seems to require 2V5 signaling</strong>, as it requires
+a FMC VADJ of 2V5 for its power supply. The excess voltage seems to be dropped down to 1V8 by adding series resistors
+and letting the ESD protection networks absorb the extra voltage. Probably not great for signal integrity, but eh,
+it's parallel data at 250MHz.</li>
+<li>The board features a USB-A connector in lieu of a B or C connector. I'd have assumed this is because they're
+primarily targeting host gateware, rather than device, but looking at their IP catalog, this doesn't seem to be the
+case.
+<ul>
+<li>As a result, in device mode, the <strong>TX and RX pairs have their +/- lines swapped</strong>. This isn't a problem, per se,
+as the USB3 specification permits inversion of these pairs, but it can certainly be surprising during debugging.</li>
+</ul>
+</li>
+<li>There's an unpopulated vertical SATA connector footprint and oscillator footprint on the board. Looking at the
+footprints, these seem to go directly to the mezzanine connector; and thus are probably attached to the FPGA's SerDes
+lines.
+<ul>
+<li>Amusingly, they go through the effort of <a href="https://www.mouser.com/datasheet/2/854/AB07-USB3FMC-MAN-E-1108178.pdf">&ldquo;blacking out&rdquo; these footprints in their reference manual</a>, likely so no one thinks this is also a SATA board.</li>
+</ul>
+</li>
+<li>Several sets of configuration lines aren't exposed. These don't appear to directly affect functionality, but there
+are a few little effects:
+<ul>
+<li>The <code>TX_ONESZEROES</code> line isn't connected, so one can't use it to generate a quick test/compliance pattern.</li>
+<li>The <code>TX_SWING</code> lines aren't connected, so one can't artificially limit the transmitter voltage swing. It runs
+at full swing / &ldquo;by-the-spec&rdquo; mode always.</li>
+<li>The <code>ELAS_BUF_MODE</code> line isn't exposed, so the device ostensibly tries to keep its elastic buffer half-full,
+and doesn't allow use of the TUSB1310A's &ldquo;nominally empty&rdquo; mode.</li>
+<li>The <code>RATE</code> line isn't exposed, either, but considering it's supposed to be strapped to <code>1</code>, this seems fine.
+It is a deviation from the HiTech module, though, and thus worth noting.</li>
+</ul>
+</li>
+</ul>
+<p>I'll add more to this list as I experiment.</p>
+<p>In the interim, here's an nMigen connector pinout for the board that I've somewhat tested:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">Resource(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">ab07_usbfmc_pipe</span><span style="color:#e6db74">&#34;</span>, <span style="color:#ae81ff">0</span>,
+    <span style="color:#75715e"># Transmit bus.</span>
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_clk</span><span style="color:#e6db74">&#34;</span>,  Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA11_P</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span>)),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_data</span><span style="color:#e6db74">&#34;</span>, Pins(
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA00_CC_P </span><span style="color:#e6db74">&#34;</span>  <span style="color:#75715e"># DATA0</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA02_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA1</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA01_CC_P </span><span style="color:#e6db74">&#34;</span>  <span style="color:#75715e"># DATA2</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA03_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA3</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA06_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA4</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA05_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA5</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA08_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA6</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA07_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA7</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA10_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA8</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA09_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA9</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA12_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA10</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA04_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA11</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA16_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA12</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA13_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA13</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA15_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA14</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA14_P </span><span style="color:#e6db74">&#34;</span>,    <span style="color:#75715e"># DATA15</span>
+        dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span>
+        )
+    ),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_datak</span><span style="color:#e6db74">&#34;</span>, Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA16_N FMC_0:LA15_N</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span>)),
+
+    <span style="color:#75715e"># Transmit config.</span>
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_elecidle</span><span style="color:#e6db74">&#34;</span>,    Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA09_N</span><span style="color:#e6db74">&#34;</span>,                 dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_detrx_lpbk</span><span style="color:#e6db74">&#34;</span>,  Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA00_CC_N</span><span style="color:#e6db74">&#34;</span>,              dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_deemph</span><span style="color:#e6db74">&#34;</span>,      Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA01_CC_N FMC_0:LA05_N</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">tx_margin</span><span style="color:#e6db74">&#34;</span>,      Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA03_N </span><span style="color:#e6db74">&#34;</span>,                dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+
+    <span style="color:#75715e"># Receive bus.</span>
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">pclk</span><span style="color:#e6db74">&#34;</span>,     Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA17_CC_P</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span>), Clock(<span style="color:#ae81ff">250e6</span>)),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_valid</span><span style="color:#e6db74">&#34;</span>, Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA20_N</span><span style="color:#e6db74">&#34;</span>,    dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_data</span><span style="color:#e6db74">&#34;</span>,  Pins(
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA19_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA0</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA22_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA1</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA20_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA2</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA21_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA3</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA18_CC_P </span><span style="color:#e6db74">&#34;</span>  <span style="color:#75715e"># DATA4</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA23_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA5</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA25_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA6</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA26_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA7</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA24_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA8</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA29_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA9</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA27_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA10</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA28_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA11</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA31_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA12</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA30_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA13</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA32_P </span><span style="color:#e6db74">&#34;</span>     <span style="color:#75715e"># DATA14</span>
+        <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA33_P </span><span style="color:#e6db74">&#34;</span>,    <span style="color:#75715e"># DATA15</span>
+        dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span>
+        )
+    ),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_datak</span><span style="color:#e6db74">&#34;</span>,      Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA28_N FMC_0:LA29_N</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span>)),
+
+    <span style="color:#75715e"># Receive status/config.</span>
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_status</span><span style="color:#e6db74">&#34;</span>,      Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA22_N FMC_0:LA25_N FMC_0:LA23_N</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_elecidle</span><span style="color:#e6db74">&#34;</span>,    Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA10_N</span><span style="color:#e6db74">&#34;</span>,            dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">io</span><span style="color:#e6db74">&#34;</span>)),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_polarity</span><span style="color:#e6db74">&#34;</span>,    Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA24_N</span><span style="color:#e6db74">&#34;</span>,            dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">rx_termination</span><span style="color:#e6db74">&#34;</span>, Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA18_CC_N</span><span style="color:#e6db74">&#34;</span>,         dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+
+    <span style="color:#75715e"># Full-PHY Control and status.</span>
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">reset</span><span style="color:#e6db74">&#34;</span>,          PinsN(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA02_N</span><span style="color:#e6db74">&#34;</span>,             dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">phy_reset</span><span style="color:#e6db74">&#34;</span>,      PinsN(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA08_N</span><span style="color:#e6db74">&#34;</span>,             dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">power_down</span><span style="color:#e6db74">&#34;</span>,     Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA07_N FMC_0:LA12_N</span><span style="color:#e6db74">&#34;</span>, dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">phy_status</span><span style="color:#e6db74">&#34;</span>,     Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA19_N</span><span style="color:#e6db74">&#34;</span>,              dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span>)),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">pwrpresent</span><span style="color:#e6db74">&#34;</span>,     Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA31_N</span><span style="color:#e6db74">&#34;</span>,              dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">i</span><span style="color:#e6db74">&#34;</span> )),
+    Subsignal(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">out_enable</span><span style="color:#e6db74">&#34;</span>,     Pins(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">FMC_0:LA04_N</span><span style="color:#e6db74">&#34;</span>  ,            dir<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">o</span><span style="color:#e6db74">&#34;</span> )),
+
+    <span style="color:#75715e"># Attributes</span>
+    Attrs(IOSTANDARD<span style="color:#f92672">=</span><span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">LVCMOS25</span><span style="color:#e6db74">&#34;</span>)
+),
+</code></pre></div>
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="/">
+          <span itemprop="name">Kate Temkin</span>
+
+          <span>,</span>
+          <span itemprop="jobTitle">lead digital witch</span> at
+          <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="https://greatscottgadgets.com"><span itemprop="name">Great Scott Gadgets</span></a>.</span><br>
+
+          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
+
+
+          <a itemprop="sameAs" href="https://github.com/ktemkin" title="GitHub">GitHub</a>
+
+          <a itemprop="sameAs" href="https://twitter.com/ktemkin" title="Twitter">Twitter</a>
+
+          
+        </span>
+
+        
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; 2020 Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

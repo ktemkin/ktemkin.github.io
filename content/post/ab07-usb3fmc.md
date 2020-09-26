@@ -4,7 +4,7 @@ date: 2020-09-25T21:34:32-06:00
 draft: false
 ---
 
-If you're looking to play with _commercial_ USB3 evaluation hardware -- that is, if you're looking to get a
+If you're looking to play with _commercial_ USB3 PHY evaluation hardware -- that is, if you're looking to get a
 board someone else has designed and built, rather than [soldering up your own](https://github.com/mossmann/daisho) or [experimenting with](https://github.com/enjoy-digital/usb3_pipe) 
 [5G SerDes](https://github.com/greatscottgadgets/luna/tree/master/luna/gateware/interface/serdes_phy) -- there seem 
 to be two options available: the [HiTech Global FMC_USB3](http://www.hitechglobal.com/FMCModules/FMC_USB3.htm) ($795 USD), 

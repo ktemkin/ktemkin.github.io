@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Kate Temkin">
+  <meta property="og:url" content="/post/ab07-usb3fmc-wtf/">
+
+  <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test - kate&#39;s lab notebook">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="kate&#39;s lab notebook">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</h1>
+       
+
+      <time class="post-date" datetime="2020-09-26 07:06:39 -0600">26 Sep 2020</time>
+    </header>
+
+    <p>I've written a bit about my look at &ldquo;commercial off-the-shelf&rdquo; USB3 PHY boards; and have been
+taking a look recently at the <a href="https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC?qs=5aG0NVq1C4wWGaHs8Oqcww%3D%3D">Design Gateway AB07-USBFMC module</a>. It turns out that my unit has what seems to be a pretty
+embarrassing defect.</p>
+<p>I've been testing my in-progress USB3 gateware with this PHY; and I've been running into an
+interesting issue: periodically, some of the raw values sent were off by a single bit.</p>
+<p>When training a USB3 link, one of the data sequences exchanged looks like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">BC BC BC BC <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 4A 4A 
+4A 4A 4A 4A 4A 4A 4A 4A 
+</code></pre></div><p>When using the AB07-USBFMC, trying to send this pattern resulted in the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">BC BC BC BC <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> 0A 4A
+0A 4A 0A 4A 0A 4A 0A 4A
+</code></pre></div><p>This is interesting for two reasons:</p>
+<ul>
+<li>This PHY has geared inputs, and accepts two bytes of data at a time.</li>
+<li>The incorrect values (<code>0A</code>) are off from the correct value (<code>4A</code>) by a single bit.</li>
+</ul>
+<p>Sure enough, modifying the data packet to send <code>FF</code> instead of <code>4A</code> pretty clearly shows off that missing bit:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">BC BC BC BC <span style="color:#ae81ff">00</span> <span style="color:#ae81ff">00</span> BF FF
+BF FF BF FF BF FF BF FF
+</code></pre></div><p>At this point, I assumed that I'd gotten the pinout incorrect; and that I'd been writing to the wrong pin &ndash;
+but careful examination of the documentation and my FPGA I/O definitions suggested that I had things right.
+This suggested it was time to check things on the physical layer.</p>
+<p>The board in question looks like this:</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/board.jpg"
+         alt="The PHY board, which features a notable long span of resistors, neatly tucked in parallel."/> <figcaption>
+            <h4>The AB07-USBFMC (slightly modified as detailed later).</h4>
+        </figcaption>
+</figure>
+
+<p>Notably, there's a long series of what look like termination / signal conditioning resistors present at
+the PHY boundary &ndash; and it looks like there's about 32 in total; which would make sense: 16 for transmit,
+and 16 for receive.</p>
+<p>A quick probe verifies that these are ~50R resistors, which would make a lot of sense for series termination:</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/50r.jpg"
+         alt="Multimeter showing a measurement of 47.5 ohms."/> <figcaption>
+            <h4>Sure looks like a series termination resistor.</h4>
+        </figcaption>
+</figure>
+
+<p>This is excellent news, as it means that the signals are easily accessible without &ldquo;voiding our warranty&rdquo;,
+which is a bit of a comfort when dealing with a rather expensive evaluation board.</p>
+<p>So, as a next-step test, I had my FPGA squirt a 100MHz clock signal into every line on the transmit bus,
+and probed the PHY side of one of those termination resistors:</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/phy_tx_healthy.png"
+         alt="A somewhat-rounded square wave, consistent with probing a 100MHz clock."/> <figcaption>
+            <h4>A nice, healthy wobble. AC coupled.</h4>
+        </figcaption>
+</figure>
+
+<p>The frequency and amplitude of this signal are pretty in-line with what you'd expect: the amplitude corresponds
+nicely to a decently healthy logic <code>1</code>. But how does the signal look on the problematic bit?</p>
+<p>I adjusted the FPGA design so it only squired a wave into the problematic bit; and probed in line until I found it:</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/phy_tx_unhealthy.png"
+         alt="A somewhat-rounded square wave, consistent with probing a 100MHz clock."/> <figcaption>
+            <h4>A *lot* less happy. Still AC couled for display.</h4>
+        </figcaption>
+</figure>
+
+<p>Ut-oh. This signal's looking a lot less happy &ndash; and a lot more attenuated. At approximately 500mV peak,
+you'd be hard pressed to consider this a logic <code>1</code>, even if you gave it your very best squint. There's no way
+this thing would have worked in a test environment &ndash; which makes it seem very unlikely that this board was, y'know,
+tested.</p>
+<p>This immediately made me suspicious of the termination resistor sitting next to it; and apparently for good reason:</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/larger_50r.jpg"
+         alt="Multimeter showing a measurement of 396.0 ohms."/> <figcaption>
+            <h4>Quite possibly the largest 50 Ω I&#39;ve ever seen.</h4>
+        </figcaption>
+</figure>
+
+<p>This resistor is quite clearly supposed to be 50 Ω. It's also quite clearly <em>not</em> 50 Ω, despite sitting cleanly
+in the middle of a row of 50 Ω resistors, and pretty much definitely the source of my problems.</p>
+<p>So, naturally it's time to perform what I assume must be several hundred dollars worth or rework on this $1.65k board.
+Luckily, I stock E24 0402s, so I had the resistor replaced with an appropriate value in no time.</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/happier.png"
+         alt="Oscilloscope display of a corrected waveform."/> <figcaption>
+            <h4>Much happier. Note the amplitude.</h4>
+        </figcaption>
+</figure>
+
+<p>With an appropriate value replaced, everything looks much happier &ndash; and everything works much more nicely.
+Finally, our USB training sets look just the way they should:</p>
+<figure>
+    <img src="/post-media/ab07-usb3fmc-wtf/yay.png"
+         alt="Analyzer display showing the correct value of our training set."/> <figcaption>
+            <h4>A correct Training Set, at last.</h4>
+        </figcaption>
+</figure>
+
+<p>I'm planning on reaching out to Design Gateway &ndash; to at least let them know that this is an issue on some boards.
+I'll update this post if/when I get a reply.</p>
+
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="/">
+          <span itemprop="name">Kate Temkin</span>
+
+          <span>,</span>
+          <span itemprop="jobTitle">lead digital witch</span> at
+          <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="https://greatscottgadgets.com"><span itemprop="name">Great Scott Gadgets</span></a>.</span><br>
+
+          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
+
+
+          <a itemprop="sameAs" href="https://github.com/ktemkin" title="GitHub">GitHub</a>
+
+          <a itemprop="sameAs" href="https://twitter.com/ktemkin" title="Twitter">Twitter</a>
+
+          
+        </span>
+
+        
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; 2020 Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

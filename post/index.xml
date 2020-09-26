@@ -6,10 +6,20 @@
     <description>Recent content in Posts on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 25 Sep 2020 21:34:32 -0600</lastBuildDate>
+    <lastBuildDate>Sat, 26 Sep 2020 07:06:39 -0600</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</title>
+      <link>/post/ab07-usb3fmc-wtf/</link>
+      <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
+      
+      <guid>/post/ab07-usb3fmc-wtf/</guid>
+      <description>I&#39;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been taking a look recently at the Design Gateway AB07-USBFMC module. It turns out that my unit has what seems to be a pretty embarrassing defect.
+I&#39;ve been testing my in-progress USB3 gateware with this PHY; and I&#39;ve been running into an interesting issue: periodically, some of the raw values sent were off by a single bit.</description>
+    </item>
     
     <item>
       <title>AB07-USB3FMC Notes &amp; Oddities</title>

@@ -52,6 +52,11 @@ or the <a href="https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC
 
 <p>Thanks to <a href="https://twitter.com/mithro/">Tim Ansell</a>, I've been able to get my hands on the <em>AB07-USBFMC</em>; this quick
 post summarizes my findings so far working with the board.</p>
+<h3 id="the-major-wtf">The Major WTF</h3>
+<p>It turns out the board I received had a pretty major &ndash; but easily correctable &ndash; issue: one of its termination
+resistors was dramatically the wrong size, leaving one out of every sixteen bits sent stuck at zero.</p>
+<p>I've documented the whole debacle <a href="/post/ab07-usb3fmc-wtf/">here</a> for your reading (dis)pleasure.</p>
+<h3 id="other-notes--findings">Other Notes &amp; Findings</h3>
 <ul>
 <li>This is essentially a very expensive <a href="https://www.ti.com/product/TUSB1310A">TUSB1310A</a> breakout board.
 <ul>

@@ -92,7 +92,7 @@ This immediately made me suspicious of the termination resistor sitting next to 
 This resistor is quite clearly supposed to be 50 Ω. It's also quite clearly *not* 50 Ω, despite sitting cleanly
 in the middle of a row of 50 Ω resistors, and pretty much definitely the source of my problems.
 
-So, naturally it's time to perform what I assume must be several hundred dollars worth or rework on this $1.65k board. 
+So, naturally it's time to perform what I assume must be several hundred dollars worth of rework on this $1.65k board. 
 Luckily, I stock E24 0402s, so I had the resistor replaced with an appropriate value in no time.
 
 {{< figure src="/post-media/ab07-usb3fmc-wtf/happier.png" 

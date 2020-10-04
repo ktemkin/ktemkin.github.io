@@ -6,10 +6,20 @@
     <description>Recent content on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 26 Sep 2020 07:06:39 -0600</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2020 17:10:55 -0600</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Corrections to: USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB</title>
+      <link>/post/mindshare-usb3/</link>
+      <pubDate>Sun, 04 Oct 2020 17:10:55 -0600</pubDate>
+      
+      <guid>/post/mindshare-usb3/</guid>
+      <description>The MindShare book USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB (ISBN-13: 978-0983646518) is a pretty decent reference for implementers of USB 3.0 / Gen1; but is published with a few factual mistakes &amp;ndash; places where their tables incorrectly copy the standard. This notebook post is here to gather the mistakes I&#39;ve found, so I can report them the publisher all at once.
+Issues thus far (page numbers for first edition):</description>
+    </item>
     
     <item>
       <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</title>

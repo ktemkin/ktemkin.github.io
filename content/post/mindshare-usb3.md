@@ -14,5 +14,5 @@ Issues thus far (page numbers for first edition):
 _Downstream-facing_ participant; and 17 indicates support for acting as an _Upstream-facing_ one.
 - **p300, Figure 13-11**: The `Type` field the figure's `LDN` should have bits 7 and 8 set to `1`; the book shows
 the values for a `LUP`.
-- **p300, Figure 13-11**: The `Type` field the figure's `LUP` should have bits 7 and 8 set to `0`; the book shows
+- **p301, Figure 13-12**: The `Type` field the figure's `LUP` should have bits 7 and 8 set to `0`; the book shows
 the values for a `LDN`.

@@ -2,6 +2,7 @@
 title: "Corrections to: USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB"
 date: 2020-10-04T17:10:55-06:00
 draft: false
+tags: ['usb3', 'book corrections']
 ---
 
 The MindShare book [_USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB_](https://www.mindshare.com/Books/Titles/USB_3.0_Technology) (ISBN-13: 978-0983646518) is a pretty decent reference for implementers of USB 3.0 / Gen1;

@@ -2,6 +2,7 @@
 title: "AB07-USB3FMC Notes & Oddities"
 date: 2020-09-25T21:34:32-06:00
 draft: false
+tags: ['usb3', 'evaluation boards', 'hardware issues']
 ---
 
 If you're looking to play with _commercial_ USB3 PHY evaluation hardware -- that is, if you're looking to get a

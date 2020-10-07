@@ -2,6 +2,7 @@
 title: "AB07-USB3FMC: The $1.65k eval board they can't be bothered to test"
 date: 2020-09-26T07:06:39-06:00
 draft: false
+tags: ['usb3', 'evaluation boards', 'hardware issues']
 ---
 
 I've written a bit about my look at "commercial off-the-shelf" USB3 PHY boards; and have been

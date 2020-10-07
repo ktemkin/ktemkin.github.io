@@ -6,10 +6,55 @@
     <description>Recent content in Tags on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 14 Sep 2020 10:04:21 -0600</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2020 16:05:23 -0600</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>explanations</title>
+      <link>/tags/explanations/</link>
+      <pubDate>Tue, 06 Oct 2020 16:05:23 -0600</pubDate>
+      
+      <guid>/tags/explanations/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>usb3</title>
+      <link>/tags/usb3/</link>
+      <pubDate>Tue, 06 Oct 2020 16:05:23 -0600</pubDate>
+      
+      <guid>/tags/usb3/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>book corrections</title>
+      <link>/tags/book-corrections/</link>
+      <pubDate>Sun, 04 Oct 2020 17:10:55 -0600</pubDate>
+      
+      <guid>/tags/book-corrections/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>evaluation boards</title>
+      <link>/tags/evaluation-boards/</link>
+      <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
+      
+      <guid>/tags/evaluation-boards/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hardware issues</title>
+      <link>/tags/hardware-issues/</link>
+      <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
+      
+      <guid>/tags/hardware-issues/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ecp5</title>
@@ -44,15 +89,6 @@
       <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
       
       <guid>/tags/lfps/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>usb3</title>
-      <link>/tags/usb3/</link>
-      <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
-      
-      <guid>/tags/usb3/</guid>
       <description></description>
     </item>
     

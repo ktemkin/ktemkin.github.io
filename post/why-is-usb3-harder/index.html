@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Kate Temkin">
+  <meta property="og:url" content="/post/why-is-usb3-harder/">
+
+  <title>USB3: why it&#39;s a bit harder than USB2 - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="USB3: why it&#39;s a bit harder than USB2 - kate&#39;s lab notebook">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="kate&#39;s lab notebook">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">USB3: why it&#39;s a bit harder than USB2</h1>
+       
+<span class="tags">
+   <a itemprop="sameAs" href="/tags/usb3/">usb3</a> <a itemprop="sameAs" href="/tags/explanations/">explanations</a></span>
+
+
+      <time class="post-date" datetime="2020-10-06 16:05:23 -0600">06 Oct 2020</time>
+    </header>
+
+    <p>A few people on twitter have asked me to explain why the USB3 winds up being much harder to implement than USB2.
+The answer is more than will fit in a single tweet, so I thought I'd put a quick-but-rough answer, here. This is
+by no means comprehensive; consider it <del>a longer tweet</del> what a tweet would be given I had more than 240 characters and a proclivity to babble. (I do.)</p>
+<p>A lot of the challenges come from the way we work around <em>physical-layer</em> limitations. Put poetically, physics gives
+us lots of little obstacles we have to work around in order to talk at 5 billion transfers per second (5GT/s).</p>
+<h5 id="its-hard-to-establish-common-dc-operating-conditions-on-both-sides-of-a-link">It's hard to establish common &ldquo;DC operating conditions&rdquo; on both sides of a link.</h5>
+<p>It's not trivial to get the same bias voltages &ndash; and common grounds &ndash; across a long motherboard or down a cable &ndash; and when you're operating at really high frequencies, you're a lot more sensitive to changes in your operating environment. In USB3, we work around this by <em>capacitively isolating</em> both sides of the link from each other &ndash; in short, we use capacitors to ensure only signal <em>changes</em> are carried across the link, which means that both sides can establish their own local operating conditions.</p>
+<figure>
+    <img src="/post-media/why-is-usb3-harder/circuit.png"
+         alt="diagram showing the transmitter is connected to the receiver through a pair of AC coupling capacitors"/> <figcaption>
+            <h4>From the USB3.2 specification: diagram showing how signals are isolated</h4>
+        </figcaption>
+</figure>
+
+<p>This puts some requirements on the digital protocols used to exchange data. Because data currents are exchanged as the relevant capacitors charge and discharge, <em>capacitive coupling</em> only works when those capacitors have room to charge and discharge. <strong>This means our data must be DC-balanced; we have to spend as much time charging those capacitors as we do discharging them</strong>. In digital terms, this means we have to encode the data in a way that sends the same amount of <code>1</code>s and <code>0</code>s.</p>
+<h5 id="its-hard-to-establish-a-common-clock-across-both-sides-of-a-link">It's hard to establish a &ldquo;common clock&rdquo; across both sides of a link.</h5>
+<p>When sending serial data, you typically have two challenges: you need to make sure both sides are sampling the data <em>at the same rate</em>, and that both sample clocks are <em>synchronized enough</em> that you're sampling at the right point. Many high-speed protocols deal with this using a technique called <em>clock recovery</em>, which essentially means that each receiver looks at the data it receives and tries to figure out what the clock that produced it looks like.</p>
+<p>If both sides have agreed on a clock rate, this can be simple, in theory: if the receiver sees a change in its
+received data, it can infer that that changed happened <em>on an active edge of the transmitter's clock</em>, and so it can start to figure out how to align its internal clock with the transmitter's.</p>
+<p>This introduces another protocol requirement: <strong>for <em>clock recovery</em> to work, the data has to change frequently enough that the two sides can keep synchronized</strong>. At 5GT/s and high data throughputs, there's not much time for clocks to become synchronized when a packet is received; accordingly, it's important that data is encoded with lots of transitions, even when the line is idle.</p>
+<p><strong>To ensure both <em>DC-Balance</em> and <em>sufficient transition density</em>, USB3 uses a method of encoding called 8b10b encoding.</strong>
+In this encoding scheme, every single byte of data is transmitted as ten bits, with encodings chosen so that:</p>
+<ul>
+<li>A typical data byte can be transmitted <em>either</em> as a code with <em>one more one than zero</em>, or <em>one more zero than one</em>.
+This allows the transmitter to choose between the two encodings, in order to keep the data stream at 50% ones.</li>
+<li>Every valid encoding has sufficient <em>transition density</em> to ensure that it's useful for clock recovery.</li>
+</ul>
+<p>I won't go into more 8b10b background here, but you can read about the typical IBM implementation <a href="https://en.wikipedia.org/wiki/8b/10b_encoding">on wikipedia</a>.</p>
+<h5 id="its-hard-to-run-both-sides-of-the-link-at-the-same--clock-rate-">It's hard to run both sides of the link at the same <em>clock rate</em>.</h5>
+<p>Even with successful <em>clock recovery</em>, it's difficult to have both sides of the link produce and consume data at
+the same rate. Each side's internal logic is running off of its own <em>clock source</em>; and every clock has a bit of deviation from its nominal frequency. For the protocol to function despite these differences, the USB3 specification allows each clock to deviate from its nominal value by up to a certain <em>tolerance</em>; and specifies a method for compensating for this tolerance. This technique is appropriately named <em>clock tolerance compensation</em>, or CTC.</p>
+<p><strong>To compensate for mismatches in sender/receiver clock rates, USB3 requires senders to periodically insert filler data into their transmitted data-stream</strong>. Receivers can then discard this data; allowing a brief pause in which the slower
+side of the link can &ldquo;catch up&rdquo;. For this to be useful, the filler data (called &lsquo;skip sets&rsquo;) must be sent regularly;
+which means additional logic on the transmitter side for insertion, and additional logic on the receiver side for
+removal.</p>
+<h5 id="its-hard-to-deal-with-varying-electrical-properties-of-different-transmitters-receivers-and-cables">It's hard to deal with varying electrical properties of different transmitters, receivers, and cables.</h5>
+<p>When operating at very high frequencies, all of the little non-idealities in along your transmission path really add up. At slower data rates, there's plenty of time for digital signals to &ldquo;settle&rdquo; after a change; making the non-ideal properties of your transmission lines less important. The faster your data gets, the more important it is for your data
+to reach a &ldquo;readable&rdquo; value quickly.</p>
+<p>To help with this, most high-speed receivers employ a technique called <em>receiver equalization</em>, which uses analog hardware
+to help reshape signal transitions, so they can be more reliably sampled. Equalization helps to &ldquo;cancel out&rdquo; some of the ways the non-ideal transmission path adversely affects the signal.</p>
+<figure>
+    <img src="/post-media/why-is-usb3-harder/eye.png"
+         alt="diagram showing a variety of slow rises and falls; illustrating that the physical link slows transitions"/> <figcaption>
+            <h4>From the USB3.2 specification: an &#39;eye diagram&#39;, which shows an overlay of many rising and falling transitions, illustrating how non-ideal properties affect the link.</h4>
+        </figcaption>
+</figure>
+
+<p>Since every transmission path is different &ndash; due to different transmitter, receiver, and cable properties &ndash; it's impossible to create a single &ldquo;one size fits all&rdquo; equalizer. Instead, each USB3 equalizer needs to be tuned to its transmission path via a process called <em>link training</em>.</p>
+<p><strong>At the start of each USB3 communication, link partners repeatedly exchange collections of known data called <em>training sets</em>, which give the opportunity for each side to tune their equalizer.</strong> Training sets include both sets of data chosen to have high transition density and sets designed to include a wide range of &ldquo;normally-distributed&rdquo; data.</p>
+<p>During a few milliseconds of data exchange &ndash; an eternity in fast-protocol terms &ndash; both sides of the link gradually
+tweak their equalizer settings until they're clearly seeing the expected values from the other side.</p>
+<h5 id="its-hard-not-to-generate-harmful-interference">It's hard not to generate harmful interference.</h5>
+<p>USB3 has a very high transition rate &ndash; it easily qualifies as high radio-frequency signaling &ndash; and its link
+often tends to exchange repeating data. This has a nasty side effect: even a well-functioning link can act as an
+antenna; unintentionally emitting RF that can interfere with nearby systems. The more repeating elements this signaling
+has, the more troublesome the interference tends to be.</p>
+<p><strong>To reduce the amount of harmful interference generated, USB3 links use a technique called <em>scrambling</em>, in which data is XOR'd with a fixed pattern before transmission.</strong> The receiver is then capable of applying the same transform to <em>descramble</em> the data stream, recovering the relevant data.</p>
+<p>You can think of scrambling as being very similar to encryption &ndash; except everyone knows the key. Once data is scrambled, it looks a lot more like &ldquo;random numbers&rdquo; than the pre-scrambling data &ndash; and accordingly, it's a lot less likely to
+generate troublesome interference. Once the scrambled data travels the link, it can be <em>descrambled</em> by the receiving end &ndash; a process similar to decryption &ndash; restoring the original data stream.</p>
+<h5 id="in-summary">In summary&hellip;</h5>
+<p>In summary, before you can even exchange meaningful data, the digital side of your device needs:</p>
+<ul>
+<li><strong>8b10b encoding and decoding hardware</strong>, so the data exchanged is <em>DC-balanced</em> and contains sufficient transitions as to allow <em>clock recovery</em>;</li>
+<li><strong>Clock Tolerance Compensation hardware</strong>, which allows the two sides to communicate even with slightly-varying clock frequencies;</li>
+<li>Hardware to orchestrate <strong>link training</strong> and <strong>receiver equalization</strong>, which helps to deal with non-ideal transmission properties;</li>
+<li><strong>Scrambling</strong> and <strong>descrambling</strong> hardware, which help to reduce harmful interference.</li>
+</ul>
+<p>This omits a few minor things, such as USB3's <em>Low Frequency Periodic Signaling</em>; but these are the major components.</p>
+<h5 id="oh-and-one-more-thing-its-hard-to-get-good-resources">Oh, and one more thing: it's hard to get good resources.</h5>
+<p>Finally, ignoring all the physical layer challenges associated with bringing a link up, there's one more major obstacle: it's hard to get good resources for working with USB3:</p>
+<ul>
+<li>Most hardware enabling custom USB designs is expensive; and <a href="/post/ab07-usb3fmc-wtf/">still rife with issues</a>.</li>
+<li>Most USB3 tooling is <a href="https://www.totalphase.com/products/beagle-usb5000-v2-ultimate/">very expensive</a>, and still rife with issues.</li>
+<li>There's very little documentation in support of the specification; and what documentation exists still hasn't been
+used enough to <a href="/post/mindshare-usb3/">identify all of its errors</a>.</li>
+</ul>
+<p>Hopefully, at some point, I'll have build enough tooling to change this.</p>
+
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="/">
+          <span itemprop="name">Kate Temkin</span>
+
+          <span>,</span>
+          <span itemprop="jobTitle">lead digital witch</span> at
+          <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="https://greatscottgadgets.com"><span itemprop="name">Great Scott Gadgets</span></a>.</span><br>
+
+          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
+
+
+          <a itemprop="sameAs" href="https://github.com/ktemkin" title="GitHub">GitHub</a>
+
+          <a itemprop="sameAs" href="https://twitter.com/ktemkin" title="Twitter">Twitter</a>
+
+          
+        </span>
+
+        
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; 2020 Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

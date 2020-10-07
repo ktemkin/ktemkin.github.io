@@ -6,10 +6,49 @@
     <description>Recent content in usb3 on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Sep 2020 11:38:10 -0600</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2020 16:05:23 -0600</lastBuildDate>
     
 	<atom:link href="/tags/usb3/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>USB3: why it&#39;s a bit harder than USB2</title>
+      <link>/post/why-is-usb3-harder/</link>
+      <pubDate>Tue, 06 Oct 2020 16:05:23 -0600</pubDate>
+      
+      <guid>/post/why-is-usb3-harder/</guid>
+      <description>A few people on twitter have asked me to explain why the USB3 winds up being much harder to implement than USB2. The answer is more than will fit in a single tweet, so I thought I&#39;d put a quick-but-rough answer, here. This is by no means comprehensive; consider it a longer tweet what a tweet would be given I had more than 240 characters and a proclivity to babble. (I do.</description>
+    </item>
+    
+    <item>
+      <title>Corrections to: USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB</title>
+      <link>/post/mindshare-usb3/</link>
+      <pubDate>Sun, 04 Oct 2020 17:10:55 -0600</pubDate>
+      
+      <guid>/post/mindshare-usb3/</guid>
+      <description>The MindShare book USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB (ISBN-13: 978-0983646518) is a pretty decent reference for implementers of USB 3.0 / Gen1; but is published with a few factual mistakes &amp;ndash; places where their tables incorrectly copy the standard. This notebook post is here to gather the mistakes I&#39;ve found, so I can report them the publisher all at once.
+Issues thus far (page numbers for first edition):</description>
+    </item>
+    
+    <item>
+      <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</title>
+      <link>/post/ab07-usb3fmc-wtf/</link>
+      <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
+      
+      <guid>/post/ab07-usb3fmc-wtf/</guid>
+      <description>I&#39;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been taking a look recently at the Design Gateway AB07-USBFMC module. It turns out that my unit has what seems to be a pretty embarrassing defect.
+I&#39;ve been testing my in-progress USB3 gateware with this PHY; and I&#39;ve been running into an interesting issue: periodically, some of the raw values sent were off by a single bit.</description>
+    </item>
+    
+    <item>
+      <title>AB07-USB3FMC Notes &amp; Oddities</title>
+      <link>/post/ab07-usb3fmc/</link>
+      <pubDate>Fri, 25 Sep 2020 21:34:32 -0600</pubDate>
+      
+      <guid>/post/ab07-usb3fmc/</guid>
+      <description>If you&#39;re looking to play with commercial USB3 PHY evaluation hardware &amp;ndash; that is, if you&#39;re looking to get a board someone else has designed and built, rather than soldering up your own or experimenting with 5G SerDes &amp;ndash; there seem to be two options available: the HiTech Global FMC_USB3 ($795 USD), or the Design Gateway AB07-USBFMC ($1,650 USD).
+  The USB3FMC sitting atop the Digilent Nexys Video FPGA board   Thanks to Tim Ansell, I&#39;ve been able to get my hands on the AB07-USBFMC; this quick post summarizes my findings so far working with the board.</description>
+    </item>
     
     <item>
       <title>USB3 LFPS Using ECP5 SerDes I/O</title>

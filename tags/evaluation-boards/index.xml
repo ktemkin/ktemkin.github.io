@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>evaluation boards on kate&#39;s lab notebook</title>
+    <link>/tags/evaluation-boards/</link>
+    <description>Recent content in evaluation boards on kate&#39;s lab notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 26 Sep 2020 07:06:39 -0600</lastBuildDate>
+    
+	<atom:link href="/tags/evaluation-boards/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</title>
+      <link>/post/ab07-usb3fmc-wtf/</link>
+      <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
+      
+      <guid>/post/ab07-usb3fmc-wtf/</guid>
+      <description>I&#39;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been taking a look recently at the Design Gateway AB07-USBFMC module. It turns out that my unit has what seems to be a pretty embarrassing defect.
+I&#39;ve been testing my in-progress USB3 gateware with this PHY; and I&#39;ve been running into an interesting issue: periodically, some of the raw values sent were off by a single bit.</description>
+    </item>
+    
+    <item>
+      <title>AB07-USB3FMC Notes &amp; Oddities</title>
+      <link>/post/ab07-usb3fmc/</link>
+      <pubDate>Fri, 25 Sep 2020 21:34:32 -0600</pubDate>
+      
+      <guid>/post/ab07-usb3fmc/</guid>
+      <description>If you&#39;re looking to play with commercial USB3 PHY evaluation hardware &amp;ndash; that is, if you&#39;re looking to get a board someone else has designed and built, rather than soldering up your own or experimenting with 5G SerDes &amp;ndash; there seem to be two options available: the HiTech Global FMC_USB3 ($795 USD), or the Design Gateway AB07-USBFMC ($1,650 USD).
+  The USB3FMC sitting atop the Digilent Nexys Video FPGA board   Thanks to Tim Ansell, I&#39;ve been able to get my hands on the AB07-USBFMC; this quick post summarizes my findings so far working with the board.</description>
+    </item>
+    
+  </channel>
+</rss>

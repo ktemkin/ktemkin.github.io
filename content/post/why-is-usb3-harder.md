@@ -105,4 +105,4 @@ Finally, ignoring all the physical layer challenges associated with bringing a l
 - There's very little documentation in support of the specification; and what documentation exists still hasn't been
   used enough to [identify all of its errors]({{< relref "mindshare-usb3.md" >}}).
 
-Hopefully, at some point, I'll have build enough tooling to change this. 
+Hopefully, at some point, I'll have built enough tooling to change this. 

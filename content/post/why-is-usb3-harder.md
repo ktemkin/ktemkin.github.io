@@ -54,7 +54,7 @@ removal.
 
 ##### It's hard to deal with varying electrical properties of different transmitters, receivers, and cables.
 
-When operating at very high frequencies, all of the little non-idealities in along your transmission path really add up. At slower data rates, there's plenty of time for digital signals to "settle" after a change; making the non-ideal properties of your transmission lines less important. The faster your data gets, the more important it is for your data
+When operating at very high frequencies, all of the little non-idealities along your transmission path really add up. At slower data rates, there's plenty of time for digital signals to "settle" after a change; making the non-ideal properties of your transmission lines less important. The faster your data gets, the more important it is for your data
 to reach a "readable" value quickly.
 
 To help with this, most high-speed receivers employ a technique called _receiver equalization_, which uses analog hardware

@@ -6,10 +6,21 @@
     <description>Recent content on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Oct 2020 16:05:23 -0600</lastBuildDate>
+    <lastBuildDate>Wed, 18 Aug 2021 04:30:18 -0600</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Including non-nMigen Instances in nMigen</title>
+      <link>/post/nmigen-instance/</link>
+      <pubDate>Wed, 18 Aug 2021 04:30:18 -0600</pubDate>
+      
+      <guid>/post/nmigen-instance/</guid>
+      <description>A common question in the #nMigen Libera.Chat channel asks how one can include a non-nMigen component&amp;mdash;(e.g. a library cell or a component from a Verilog design)&amp;mdash;so it seemed worth writing up a quick note we can link to answer that.
+Invoking a Component The key is to create an nmigen.Instance component, as in the following example:
+m.submodules.my_component = Instance(&amp;#34;CustomFlipFlop&amp;#34;, # Attributes a_HasAsyncReset = False, # Parameters p_NumberInputs = &amp;#34;1&amp;#34;, p_NumberOutputs = &amp;#34;1&amp;#34;, # Inputs i_D = my_input_signal, # Ouptuts o_Q = my_output_signal, # Bidirectional / inouts io_DZ = my_tristate_pin ) As the inputs/outputs to this function currently lack type information, we&#39;ll need to prefix each name with a short prefix, depending on its type:</description>
+    </item>
     
     <item>
       <title>USB3: why it&#39;s a bit harder than USB2</title>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Kate Temkin">
+  <meta property="og:url" content="/post/nmigen-instance/">
+
+  <title>Including non-nMigen Instances in nMigen - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="Including non-nMigen Instances in nMigen - kate&#39;s lab notebook">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="kate&#39;s lab notebook">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Including non-nMigen Instances in nMigen</h1>
+       
+
+      <time class="post-date" datetime="2021-08-18 04:30:18 -0600">18 Aug 2021</time>
+    </header>
+
+    <p>A common question in the <code>#nMigen</code> Libera.Chat channel asks how one can include a non-nMigen component&mdash;(e.g. a library cell or a component from a Verilog design)&mdash;so it seemed worth writing up a quick note we can link to answer  that.</p>
+<h4 id="invoking-a-component">Invoking a Component</h4>
+<p>The key is to create an <code>nmigen.Instance</code> component, as in the following example:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m<span style="color:#f92672">.</span>submodules<span style="color:#f92672">.</span>my_component <span style="color:#f92672">=</span> Instance(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">CustomFlipFlop</span><span style="color:#e6db74">&#34;</span>,
+		<span style="color:#75715e"># Attributes</span>
+		a_HasAsyncReset <span style="color:#f92672">=</span> False,
+		
+		<span style="color:#75715e"># Parameters</span>
+		p_NumberInputs  <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">1</span><span style="color:#e6db74">&#34;</span>,
+		p_NumberOutputs <span style="color:#f92672">=</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">1</span><span style="color:#e6db74">&#34;</span>,
+
+		<span style="color:#75715e"># Inputs</span>
+		i_D <span style="color:#f92672">=</span> my_input_signal,
+		
+		<span style="color:#75715e"># Ouptuts</span>
+		o_Q <span style="color:#f92672">=</span> my_output_signal,
+		
+		<span style="color:#75715e"># Bidirectional / inouts</span>
+		io_DZ <span style="color:#f92672">=</span> my_tristate_pin
+)
+</code></pre></div><p>As the inputs/outputs to this function currently lack type information, we'll need to prefix each name with a short prefix, depending on its type:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Prefix</th>
+<th align="left">Corresponding HDL Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>a_</code></td>
+<td align="left">Attribute</td>
+</tr>
+<tr>
+<td align="left"><code>p_</code></td>
+<td align="left">Parameter</td>
+</tr>
+<tr>
+<td align="left"><code>i_</code></td>
+<td align="left">Input Port</td>
+</tr>
+<tr>
+<td align="left"><code>o_</code></td>
+<td align="left">Output Port</td>
+</tr>
+<tr>
+<td align="left"><code>io_</code></td>
+<td align="left">Bidirectional / inout port</td>
+</tr>
+</tbody>
+</table>
+<h4 id="including-hdl-sources">Including HDL Sources</h4>
+<p>If you're using an external HDL source &ndash; for example, a Verilog file &ndash; you'll need to tell nMigen to include the relevant HDL source in your build plan. This is accomplished by calling the <code>add_file</code> method on the <code>platform</code> being used to  build your project, which takes the following signature:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">platform<span style="color:#f92672">.</span>add_file(filename, file_contents)
+</code></pre></div><p>Here, <code>filename</code> is the name that will be used internally to the nMigen build plan (including by the target synthesis tool); and <code>file_contents</code> is either the file's contents (as a <code>str</code> or <code>bytes</code> object), or a file-like object.</p>
+<p>An example of adding a single Verilog file to a design is as follows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#34;</span>:
+    platform <span style="color:#f92672">=</span> ICE40HX1KBlinkEVNPlatform()
+    
+    <span style="color:#75715e"># Add our Verilog file.</span>
+    platform<span style="color:#f92672">.</span>add_file(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">my_verilog_design.v</span><span style="color:#e6db74">&#34;</span>, open(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">path_to_my_verilog_design.v</span><span style="color:#e6db74">&#34;</span>))
+    
+    platform<span style="color:#f92672">.</span>build(Blinky(), do_program<span style="color:#f92672">=</span>True)
+</code></pre></div><p>As this is Python, it's entirely possible to easily add e.g. all <code>.v</code> files in the current folder:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#f92672">import</span> glob
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#34;</span>:
+    platform <span style="color:#f92672">=</span> ICE40HX1KBlinkEVNPlatform()
+    
+    <span style="color:#75715e"># Add all Verilog files in our working directory:</span>
+    <span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">*.v</span><span style="color:#e6db74">&#34;</span>)<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span>
+        platform<span style="color:#f92672">.</span>add_file(filename<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">, open(filename))</span>
+    
+    platform<span style="color:#f92672">.</span>build(Blinky(), do_program<span style="color:#f92672">=</span>True)
+</code></pre></div>
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="/">
+          <span itemprop="name">Kate Temkin</span>
+
+          <span>,</span>
+          <span itemprop="jobTitle">digital witch</span> at
+          <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="http://ktemk.in"><span itemprop="name">[temporary redacted]</span></a>.</span><br>
+
+          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
+
+
+          <a itemprop="sameAs" href="https://github.com/ktemkin" title="GitHub">GitHub</a>
+
+          <a itemprop="sameAs" href="https://twitter.com/ktemkin" title="Twitter">Twitter</a>
+
+          
+        </span>
+
+        
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; 2021 Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

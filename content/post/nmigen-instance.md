@@ -71,7 +71,7 @@ if __name__ == "__main__":
     platform = ICE40HX1KBlinkEVNPlatform()
     
     # Add all Verilog files in our working directory:
-    for filename in glob.glob("*.v")" 
+    for filename in glob.glob("*.v"): 
         platform.add_file(filename", open(filename))
     
     platform.build(Blinky(), do_program=True)

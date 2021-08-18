@@ -19,7 +19,7 @@
       <guid>/post/nmigen-instance/</guid>
       <description>A common question in the #nMigen Libera.Chat channel asks how one can include a non-nMigen component&amp;mdash;(e.g. a library cell or a component from a Verilog design)&amp;mdash;so it seemed worth writing up a quick note we can link to answer that.
 Invoking a Component The key is to create an nmigen.Instance component, as in the following example:
-m.submodules.my_component = Instance(&amp;#34;CustomFlipFlop&amp;#34;, # Attributes a_HasAsyncReset = False, # Parameters p_NumberInputs = &amp;#34;1&amp;#34;, p_NumberOutputs = &amp;#34;1&amp;#34;, # Inputs i_D = my_input_signal, # Ouptuts o_Q = my_output_signal, # Bidirectional / inouts io_DZ = my_tristate_pin ) As the inputs/outputs to this function currently lack type information, we&#39;ll need to prefix each name with a short prefix, depending on its type:</description>
+m.submodules.my_component = Instance(&amp;#34;CustomFlipFlop&amp;#34;, # Attributes a_HasAsyncReset = False, # Parameters p_NumberInputs = &amp;#34;1&amp;#34;, p_NumberOutputs = &amp;#34;1&amp;#34;, # Inputs i_D = my_input_signal, # Ouptuts o_Q = my_output_signal, # Bidirectional / inouts io_DZ = my_tristate_pin ) The first parameter to the Instance constructor is the name of the component to be instantiated, which usually matches e.</description>
     </item>
     
     <item>

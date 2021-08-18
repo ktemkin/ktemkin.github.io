@@ -58,7 +58,7 @@
 		<span style="color:#75715e"># Bidirectional / inouts</span>
 		io_DZ <span style="color:#f92672">=</span> my_tristate_pin
 )
-</code></pre></div><p>As the inputs/outputs to this function currently lack type information, we'll need to prefix each name with a short prefix, depending on its type:</p>
+</code></pre></div><p>The first parameter to the <code>Instance</code> constructor is the name of the component to be instantiated, which usually matches e.g. your library cell instance, or your Verilog module name. The remaining (keyword) arguments are the inputs and outputs to the Instance. As these inputs/outputs to this function currently lack type information, we'll need to prefix each name with a short prefix, depending on its type:</p>
 <table>
 <thead>
 <tr>

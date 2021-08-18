@@ -30,7 +30,7 @@ m.submodules.my_component = Instance("CustomFlipFlop",
 )
 ```
 
-As the inputs/outputs to this function currently lack type information, we'll need to prefix each name with a short prefix, depending on its type:
+The first parameter to the `Instance` constructor is the name of the component to be instantiated, which usually matches e.g. your library cell instance, or your Verilog module name. The remaining (keyword) arguments are the inputs and outputs to the Instance. As these inputs/outputs to this function currently lack type information, we'll need to prefix each name with a short prefix, depending on its type:
 
 | Prefix | Corresponding HDL Type     |
 |:-------|:---------------------------|

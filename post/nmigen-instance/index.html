@@ -108,7 +108,7 @@
     platform <span style="color:#f92672">=</span> ICE40HX1KBlinkEVNPlatform()
     
     <span style="color:#75715e"># Add all Verilog files in our working directory:</span>
-    <span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">*.v</span><span style="color:#e6db74">&#34;</span>)<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74"> </span>
+    <span style="color:#66d9ef">for</span> filename <span style="color:#f92672">in</span> glob<span style="color:#f92672">.</span>glob(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">*.v</span><span style="color:#e6db74">&#34;</span>): 
         platform<span style="color:#f92672">.</span>add_file(filename<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">, open(filename))</span>
     
     platform<span style="color:#f92672">.</span>build(Blinky(), do_program<span style="color:#f92672">=</span>True)

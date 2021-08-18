@@ -4,7 +4,7 @@ date: 2021-08-18T04:30:18-06:00
 draft: false
 ---
 
-A common question in the `#nMigen` Libera.Chat channel asks how one can include a non-nMigen component---(e.g. a library cell or a component from a Verilog design)---so it seemed worth writing up a quick note we can link to answer  that.
+A common question in the `#nMigen` Libera.Chat channel asks how one can include a non-nMigen component---e.g. a library cell or a component from a Verilog design---so it seemed worth writing up a quick note we can link to answer  that.
 
 #### Invoking a Component
 

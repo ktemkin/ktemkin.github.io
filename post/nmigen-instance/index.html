@@ -38,7 +38,7 @@
       <time class="post-date" datetime="2021-08-18 04:30:18 -0600">18 Aug 2021</time>
     </header>
 
-    <p>A common question in the <code>#nMigen</code> Libera.Chat channel asks how one can include a non-nMigen component&mdash;(e.g. a library cell or a component from a Verilog design)&mdash;so it seemed worth writing up a quick note we can link to answer  that.</p>
+    <p>A common question in the <code>#nMigen</code> Libera.Chat channel asks how one can include a non-nMigen component&mdash;e.g. a library cell or a component from a Verilog design&mdash;so it seemed worth writing up a quick note we can link to answer  that.</p>
 <h4 id="invoking-a-component">Invoking a Component</h4>
 <p>The key is to create an <code>nmigen.Instance</code> component, as in the following example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m<span style="color:#f92672">.</span>submodules<span style="color:#f92672">.</span>my_component <span style="color:#f92672">=</span> Instance(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">CustomFlipFlop</span><span style="color:#e6db74">&#34;</span>,

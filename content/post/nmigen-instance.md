@@ -72,7 +72,7 @@ if __name__ == "__main__":
     
     # Add all Verilog files in our working directory:
     for filename in glob.glob("*.v"): 
-        platform.add_file(filename", open(filename))
+        platform.add_file(filename, open(filename))
     
     platform.build(Blinky(), do_program=True)
 ```

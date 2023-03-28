@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>wavegens on kate&#39;s lab notebook</title>
+    <link>/tags/wavegens/</link>
+    <description>Recent content in wavegens on kate&#39;s lab notebook</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Mar 2023 11:38:39 -0600</lastBuildDate>
+    
+	<atom:link href="/tags/wavegens/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Quick look at the Hanmatek HO102S Portable Oscilloscope</title>
+      <link>/post/hanmatek-ho102s/</link>
+      <pubDate>Tue, 28 Mar 2023 11:38:39 -0600</pubDate>
+      
+      <guid>/post/hanmatek-ho102s/</guid>
+      <description>I&#39;ve recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &amp;ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.
+Options like the Analog Discovery 2 are nice; but their readouts take up screen space; and they&#39;re often limited bandwidth &amp;ndash; so I thought I&#39;d try out a cheaper option in a DMM form factor.</description>
+    </item>
+    
+  </channel>
+</rss>

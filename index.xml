@@ -6,10 +6,20 @@
     <description>Recent content on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 18 Aug 2021 04:30:18 -0600</lastBuildDate>
+    <lastBuildDate>Tue, 28 Mar 2023 11:38:39 -0600</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Quick look at the Hanmatek HO102S Portable Oscilloscope</title>
+      <link>/post/hanmatek-ho102s/</link>
+      <pubDate>Tue, 28 Mar 2023 11:38:39 -0600</pubDate>
+      
+      <guid>/post/hanmatek-ho102s/</guid>
+      <description>I&#39;ve recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &amp;ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.
+Options like the Analog Discovery 2 are nice; but their readouts take up screen space; and they&#39;re often limited bandwidth &amp;ndash; so I thought I&#39;d try out a cheaper option in a DMM form factor.</description>
+    </item>
     
     <item>
       <title>Including non-Amaranth Instances in Amaranth [repost]</title>

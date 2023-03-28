@@ -3,6 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/tags/equipment/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/multimeters/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/oscilloscopes/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/hanmatek-ho102s/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/wavegens/</loc>
+    <lastmod>2023-03-28T11:38:39-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/amaranth-instance/</loc>
     <lastmod>2021-08-18T04:30:18-06:00</lastmod>
   </url>
@@ -13,22 +53,7 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2021-08-18T04:30:18-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2021-08-18T04:30:18-06:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/explanations/</loc>
-    <lastmod>2020-10-06T16:05:23-06:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
     <lastmod>2020-10-06T16:05:23-06:00</lastmod>
   </url>
   

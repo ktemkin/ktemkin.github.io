@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.62.0" />
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Kate Temkin">
+  <meta property="og:url" content="/post/hanmatek-ho102s/">
+
+  <title>Quick look at the Hanmatek HO102S Portable Oscilloscope - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="Quick look at the Hanmatek HO102S Portable Oscilloscope - kate&#39;s lab notebook">
+  <meta property="og:type" content="article">
+  <meta name="description" content="">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <link rel="stylesheet" href="/css/journal.css">
+  <link href="/index.xml" rel="alternate" type="application/rss+xml" title="kate&#39;s lab notebook">
+
+</head>
+
+<body>
+  <div class="container">
+
+    <nav class="site-nav">
+      <a href="/">Index</a>
+    </nav>
+
+
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">Quick look at the Hanmatek HO102S Portable Oscilloscope</h1>
+       
+<span class="tags">
+   <a itemprop="sameAs" href="/tags/equipment/">equipment</a> <a itemprop="sameAs" href="/tags/oscilloscopes/">oscilloscopes</a> <a itemprop="sameAs" href="/tags/wavegens/">wavegens</a> <a itemprop="sameAs" href="/tags/multimeters/">multimeters</a></span>
+
+
+      <time class="post-date" datetime="2023-03-28 11:38:39 -0600">28 Mar 2023</time>
+    </header>
+
+    <p>I've recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.</p>
+<p>Options like the <a href="https://digilent.com/shop/analog-discovery-2-100ms-s-usb-oscilloscope-logic-analyzer-and-variable-power-supply/">Analog Discovery 2</a> are nice; but their readouts take up screen space; and they're often limited bandwidth &ndash; so I thought I'd try out a cheaper option in a DMM form factor. I wound up picking up a <a href="https://www.amazon.com/gp/product/B0BCDMQY4J">Hanmatek HO102S</a> &ndash; which isn't from a well-known brand, but <em>is</em> cheap enough that purchasing one seemed like a relatively low-risk proposition.</p>
+<p>After playing with it a bit, here are some thoughts.</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/closeup.jpeg"
+         alt="close-up of the multimeter&#39;s top half, showing a fairly standard oscilloscope screen"/> 
+</figure>
+
+<h2 id="quick-takes">Quick Takes</h2>
+<p>This whole article is supposed to be quick takes; but given how much I tend to wind up writing, here's a TL;DR section first.</p>
+<h4 id="specifications">Specifications</h4>
+<ul>
+<li>Oscilloscope, function generator, and digital multimeter modes</li>
+<li>Two (2) BNC oscilloscope inputs, 100MHz analog bandwidth and 500MSa/S</li>
+<li>One (1) 50Ω BNC function generator output (optional), with an analog bandwidth of 25MHz and an unspecified output sample rate that appears to be ~100MSa/S.</li>
+<li>The standard four DMM banana plug inputs:
+<ul>
+<li>a &lt;= 10A port for higher current</li>
+<li>a &lt;= 200mA port for lower currents</li>
+<li>a &lt;= 600V voltage/resistance/continuity/capacitance/diode-measure port</li>
+<li>your standard COM input</li>
+</ul>
+</li>
+</ul>
+<h4 id="the-good">The Good</h4>
+<ul>
+<li>The HS102S is <em>super</em> cheap. A 50MHz variant without the function generator option currently costs about $125 on Amazon, which puts this much more in the realm of accessible to beginners. The more expensive 100MHz + function generator variety only brings the price up to about $240.</li>
+<li>The unit provides a fairly capable oscilloscope, function generator, and multimeter, all in one DMM-sized package.</li>
+<li>The unit seems like a capable multimeter, with a full set of basic features and a capacitance measurement mode.</li>
+<li>Rechargeable battery, and USB-C charging (though not power delivery). &lt;3</li>
+<li>The purchase price of the unit includes a small case, two 100MHz 10:1 / 6MHz 1:1 probes, a set of reasonable multimeter probes, and &ndash; for the version with a function generator &ndash; a BNC-to-alligator cable.</li>
+<li>The case and body feel reasonably rugged &ndash; I wouldn't be afraid to e.g. drop this thing from a desk.</li>
+<li>It's <em>adorable</em>.</li>
+</ul>
+<h4 id="the-bad">The Bad</h4>
+<ul>
+<li>The &ldquo;front panel&rdquo; controls are a bit clunky to use &ndash; you'll find yourself repeatedly mashing the directional keys in order to adjust the horizontal or vertical scales and offsets.</li>
+<li>The scope is missing a few very-standard features:
+<ul>
+<li>No <strong>cursor</strong> controls whatsoever.</li>
+<li>The scope can only be triggered on rising or falling edges; so e.g. no pulse-based triggering.</li>
+<li>There's no trigger holdoff; so the scope will struggle to trigger on signals with multiple edges, like UART signals.</li>
+<li>Only a few measurements are available: frequency, period, amplitude, min, max, peak-to-peak, and average. Other common measurements (rise/fall time, positive/negative width, duty cycle, etc) are missing, which can be doubly difficult given there's no cursor functionality.</li>
+</ul>
+</li>
+<li>The function generator is capable, but the analog bandwidth is on the lower side, and like many lower-end modern function generators, you'll see some quantization due to low bit depth.</li>
+<li>The function generator lacks sweep functions.</li>
+<li>The multimeter's continuity buzzer doesn't latch, which means it can miss rapid connections. This means you can't e.g. sweep it across a row of TQFP pins until you find the connection you're looking for. :(</li>
+<li>The little unit does the unfortunately-standard &ldquo;beep at you repeatedly if it thinks you left it on, then turn off&rdquo;, which inevitably will trigger while you're using it, or trying to capture values for a review.</li>
+<li>While the scope does have PC connectivity and companion software, I couldn't get it to work. The device seems to offer Mass Storage or HID-connected modes; but the software seems to expect things to be over a virtual serial port. (Perhaps they've linked the wrong software in their listings?)</li>
+</ul>
+<h2 id="some-details">Some Details</h2>
+<p>Some more detailed/review-style discussions follow; but they're by no means comprehensive.</p>
+<h4 id="as-an-oscilloscope">As an oscilloscope</h4>
+<p>All in all, the device seems like a <em>fairly</em> capable 500MSa/s oscilloscope &ndash; more than enough for most simple / day-to-day visualizations; but lacking a few common oscilloscope features that limit the way you can look at complex waveforms. That said, this is definitely a capable unit for the current price point of around $100-$250 USD, depending on options.</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/simple_waves.png"
+         alt="an image of a reasonable enough triangle and square wave"/> 
+</figure>
+
+<p>The screen provides a pretty standard &ndash; and thus familiar &ndash; oscilloscope display; but the controls are set up like a multimeter; so the controls definitely take some getting used to:</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/whole_scope.jpeg"
+         alt="an image of a device in the form factor of a digital multimeter, but with a directional pad and a set of buttons, instead of either a DMM or a scope interface"/> 
+</figure>
+
+<p>Awkwardly, you have to use the directional keys in order to adjust all of the horizontal and vertical parameters &ndash; so if you're doing more than hitting Autoset, you're going to have to be mashing a bunch of buttons.</p>
+<p>The device is limited to 500MSa/S &ndash; on the low-end acceptable for a device that advertises 100MHz of analog bandwidth. As a quick test, I plugged in a 1.5ns-rise pulse generator, in order to see limits of the device's sample rate and analog bandwidth:</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/pulse.png"
+         alt="an image of a square wave displayed on the device&#39;s screen, with some ringing around the edges"/> 
+</figure>
+
+<p>Even without zooming in to the edge, we can see a bit of ringing on the waveform &ndash; caused here by the fact that the scope only has high-Z inputs, without any option for 50R termination. Omitting that is pretty standard on less-expensive scopes, so that's quite forgivable.</p>
+<p>If we zoom in a bit, we can see the ringing in more detail &ndash; which actually helps us get some interesting input with which to see the scope's capabilities.</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/pulse_ringing.png"
+         alt="the same square wave, but zoomed way in on its rising edge; which looks to rise in around 3ms"/> 
+</figure>
+
+<p>Unfortunately, this scope has limited measurement capabilities and &ndash; as far as I can tell &ndash; <em>no cursor support</em> &ndash; which definitely makes measuring things like rise time a real pain.</p>
+<p>The scope does appear to meet its analog and digital input specifications &ndash; as long as you note that at 100MHz, you're only oversampling by around 5x, as opposed to the more-standard 10x oversampling, so high-frequency images won't be as clear.</p>
+<h4 id="as-a-function-generator">As a function generator</h4>
+<p>The unit has a built-in, DAC-based arbitrary waveform generator &ndash; though you won't be making much use of the &ldquo;arbitrary&rdquo; part for user waveforms, as there doesn't appear to be a way to enter waveforms of your own.</p>
+<p>Instead, you get a fairly basic set of waves: sinewaves, square waves, ramps, simple pulses, and &ldquo;arbitrary&rdquo;. The arbitrary category has a few useful waveforms: sinc waves, short amplitude sweeps, stairs, and bessel functions.</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/ampalt.png"
+         alt="a view of a sine wave that gradually increases in amplitude, then resets back to 0V and starts over"/> <figcaption>
+            <h4>a short amplitude sweep, as produced by the HO102S</h4>
+        </figcaption>
+</figure>
+
+<p>The fact that the arbitrary functionality includes a short amplitude sweep hints at a major missing feature of the function generator: there's no capability to run amplitude or frequency sweeps, which means you can't use to e.g. get a quick idea of a circuit's frequency response.</p>
+<p>Note that like most frequency generators, the HO102S has an output impedance of 50R, so if you plug it into its own inputs, you'll see ringing due to the impedance mismatch. This makes it even more of a pity that the scope doesn't include a 50R-input mode.</p>
+<h4 id="as-a-multimeter">As a multimeter</h4>
+<p>The HO102S also features a pretty basic autoranging, 4.1-digit digital multimeter &ndash; capable of the typical voltage and current measurements, continuity, resistance, diode-checking &ndash; and, surprisingly, reasonably decent capacitor measurement.</p>
+<figure>
+    <img src="/post-media/hanmatek-ho102s/multimeter.jpeg"
+         alt="the device in multimeter mode, advertising a voltage reading of 2.500 volts"/> <figcaption>
+            <h4>measuring a little 2.5000 reference with the HO102S</h4>
+        </figcaption>
+</figure>
+
+<p>The primary limitation of the HO102S as a DMM is its relatively low precision, at 4.1 digits &ndash; and while it appeared pretty darned accurate in all tests I did, I'm still suspicious that it may be inaccurate in certain ranges or at different temperatures. (Then again, I'm pretty sure my suspicion is directly driven from a distrust of multi-function units, especially at this price range, so that might just be my bias.)</p>
+<p>All in all, the multimeter seems good enough that I wouldn't feel I was missing that much if I were stuck somewhere with it as my only DMM.</p>
+<p>My only real complaint is the lack of a latching continuity buzzer &ndash; which means that you have to hold the probes on the relevant pins for a a fraction of a second before you'll get a beep. This means you can't do the reverse-engineering favorite of rapidly sweeping a probe across a whole row of pins. :(</p>
+
+
+  </article>
+
+
+      <footer class="site-footer">
+        <span itemscope itemtype="http://schema.org/Person">
+          <link itemprop="url" href="/">
+          <span itemprop="name">Kate Temkin</span>
+
+          <span>,</span>
+          <span itemprop="jobTitle">digital witch</span> at
+          <span itemprop="memberOf" itemscope itemtype="http://schema.org/Organization"><a itemprop="url" href="http://ktemk.in"><span itemprop="name">[temporary redacted]</span></a>.</span><br>
+
+          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
+
+
+          <a itemprop="sameAs" href="https://github.com/ktemkin" title="GitHub">GitHub</a>
+
+          <a itemprop="sameAs" href="https://twitter.com/ktemkin" title="Twitter">Twitter</a>
+
+          
+        </span>
+
+        
+
+        <br>
+        <br>
+        <span itemprop="copyright"><i>Content &copy; 2023 Katherine Temkin; licensed <a href="https://creativecommons.org/licenses/by/2.0/">CC-BY</a> for your use.</i></span>
+
+      </footer>
+    </div>
+
+  <script src="/js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  </body>
+</html>
+

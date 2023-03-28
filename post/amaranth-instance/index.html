@@ -8,10 +8,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Kate Temkin">
-  <meta property="og:url" content="/post/nmigen-instance/">
+  <meta property="og:url" content="/post/amaranth-instance/">
 
-  <title>Including non-nMigen Instances in nMigen - kate&#39;s lab notebook</title>
-  <meta property="og:title" content="Including non-nMigen Instances in nMigen - kate&#39;s lab notebook">
+  <title>Including non-Amaranth Instances in Amaranth [repost] - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="Including non-Amaranth Instances in Amaranth [repost] - kate&#39;s lab notebook">
   <meta property="og:type" content="article">
   <meta name="description" content="">
 
@@ -32,15 +32,15 @@
 
   <article class="post">
     <header class="post-header">
-      <h1 class="post-title">Including non-nMigen Instances in nMigen</h1>
+      <h1 class="post-title">Including non-Amaranth Instances in Amaranth [repost]</h1>
        
 
       <time class="post-date" datetime="2021-08-18 04:30:18 -0600">18 Aug 2021</time>
     </header>
 
-    <p>A common question in the <code>#nMigen</code> Libera.Chat channel asks how one can include a non-nMigen component&mdash;e.g. a library cell or a component from a Verilog design&mdash;so it seemed worth writing up a quick note we can link to answer  that.</p>
+    <p>A common question in the <code>#amaranth-lang</code> Libera.Chat channel asks how one can include a non-Amaranth component&mdash;e.g. a library cell or a component from a Verilog design&mdash;so it seemed worth writing up a quick note we can link to answer  that.</p>
 <h4 id="invoking-a-component">Invoking a Component</h4>
-<p>The key is to create an <code>nmigen.Instance</code> component, as in the following example:</p>
+<p>The key is to create an <code>amaranth.Instance</code> component, as in the following example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">m<span style="color:#f92672">.</span>submodules<span style="color:#f92672">.</span>my_component <span style="color:#f92672">=</span> Instance(<span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">CustomFlipFlop</span><span style="color:#e6db74">&#34;</span>,
 		<span style="color:#75715e"># Attributes</span>
 		a_HasAsyncReset <span style="color:#f92672">=</span> False,
@@ -90,9 +90,9 @@
 </tbody>
 </table>
 <h4 id="including-hdl-sources">Including HDL Sources</h4>
-<p>If you're using an external HDL source &ndash; for example, a Verilog file &ndash; you'll need to tell nMigen to include the relevant HDL source in your build plan. This is accomplished by calling the <code>add_file</code> method on the <code>platform</code> being used to  build your project, which takes the following signature:</p>
+<p>If you're using an external HDL source &ndash; for example, a Verilog file &ndash; you'll need to tell Amaranth to include the relevant HDL source in your build plan. This is accomplished by calling the <code>add_file</code> method on the <code>platform</code> being used to  build your project, which takes the following signature:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">platform<span style="color:#f92672">.</span>add_file(filename, file_contents)
-</code></pre></div><p>Here, <code>filename</code> is the name that will be used internally to the nMigen build plan (including by the target synthesis tool); and <code>file_contents</code> is either the file's contents (as a <code>str</code> or <code>bytes</code> object), or a file-like object.</p>
+</code></pre></div><p>Here, <code>filename</code> is the name that will be used internally to the Amaranth build plan (including by the target synthesis tool); and <code>file_contents</code> is either the file's contents (as a <code>str</code> or <code>bytes</code> object), or a file-like object.</p>
 <p>An example of adding a single Verilog file to a design is as follows:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py"><span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74"></span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">__main__</span><span style="color:#e6db74">&#34;</span>:
     platform <span style="color:#f92672">=</span> ICE40HX1KBlinkEVNPlatform()

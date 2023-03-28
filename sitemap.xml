@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/amaranth-instance/</loc>
+    <lastmod>2021-08-18T04:30:18-06:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/nmigen-instance/</loc>
     <lastmod>2021-08-18T04:30:18-06:00</lastmod>
   </url>

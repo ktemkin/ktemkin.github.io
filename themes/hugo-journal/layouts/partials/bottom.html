@@ -2,7 +2,7 @@
       <footer class="site-footer">
         <span itemscope itemtype="http://schema.org/Person">
           <link itemprop="url" href="{{ .Site.BaseURL }}">
-          <span itemprop="name">{{- .Site.Author.name -}}</span>
+          <span itemprop="name">{{- .Site.Params.Author.name -}}</span>
 
           {{ if isset .Site.Params "work" -}}
           <span>,</span>

@@ -183,7 +183,7 @@ The following functions seem to exist on formula nodes, with _child nodes_ being
     - **first child:** the array to be filtered
 - `backlink`  - find all nodes with a given field ("F") that references the given node ("N")
     - **first child, "F"**: a reference to the field which will be searched for references to the given node
-    - **second child, "N":  **the node to be searched _for_; defaults to `SELF` 
+    - **second child, "N"**: the node to be searched _for_; defaults to `SELF` 
 - `ownerOf` - returns the _owner_ for the given node (every Tana node has a single _owner_, where it conceptually resides, even if it's referenced in multiple _parents)_
 - `formatDate`  - formats a given date
     - **first child:** the date to format, which should be a parseable date string, rather than as a reference

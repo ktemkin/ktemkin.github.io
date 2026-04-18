@@ -10,7 +10,9 @@ enableGitInfo = false
 	description = "unpolished technical \"content\" from @ktemkin"
 	githubUsername = "ktemkin"
 	twitterUsername = "ktemkin"
-	Author.name = "Kate Temkin"
+
+[Params.Author]
+	name = "Kate Temkin"
 
 [Params.work]
 	jobTitle   = "CEO & Engineering Lead"

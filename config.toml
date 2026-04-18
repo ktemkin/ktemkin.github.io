@@ -4,15 +4,13 @@ title = "kate's lab notebook"
 theme = "hugo-journal"
 enableGitInfo = false
 
-[Author]
-	name = "Kate Temkin"
-
 [Params]
 	mainSections = ["post"]
 	tagline = "unpolished technical \"content\" from @ktemkin"
 	description = "unpolished technical \"content\" from @ktemkin"
 	githubUsername = "ktemkin"
 	twitterUsername = "ktemkin"
+	Author.name = "Kate Temkin"
 
 [Params.work]
 	jobTitle   = "CEO & Engineering Lead"

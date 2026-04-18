@@ -6,10 +6,21 @@
     <description>Recent content in Posts on kate&#39;s lab notebook</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Mar 2023 11:38:39 -0600</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2026 15:44:21 +0200</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hidden Tana Feature: Formula Nodes</title>
+      <link>/post/tana-formulae/</link>
+      <pubDate>Sat, 18 Apr 2026 15:44:21 +0200</pubDate>
+      
+      <guid>/post/tana-formulae/</guid>
+      <description>If you&#39;re just interested in the how-to &amp;ndash; you can jump past my context.
+If you&#39;re just looking for the formula function reference, you can jump to that, too.
+Tana Outliner is a pretty cool piece of note-taking/&amp;ldquo;personal knowledge management &amp;quot; software &amp;ndash; despite their heavy advertisement of AI interactivity &amp;ndash; which manages mostly to deliver on the promise of letting you do very little work regarding data capture, while still making data retrieval possible.</description>
+    </item>
     
     <item>
       <title>Quick look at the Hanmatek HO102S Portable Oscilloscope</title>

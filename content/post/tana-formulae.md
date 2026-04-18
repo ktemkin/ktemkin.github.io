@@ -1,5 +1,5 @@
 ---
-title: "Hidden Tana Feature: Formula Nodes"
+title: "Hidden Tana Feature: Formula Fields"
 date: 2026-04-18T15:44:21+02:00
 draft: false
 tags: ['tana']

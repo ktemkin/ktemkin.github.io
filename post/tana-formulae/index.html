@@ -3,15 +3,15 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.155.3">
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="">
+  <meta name="author" content="Kate Temkin">
   <meta property="og:url" content="/post/tana-formulae/">
 
-  <title>Hidden Tana Feature: Formula Nodes - kate&#39;s lab notebook</title>
-  <meta property="og:title" content="Hidden Tana Feature: Formula Nodes - kate&#39;s lab notebook">
+  <title>Hidden Tana Feature: Formula Fields - kate&#39;s lab notebook</title>
+  <meta property="og:title" content="Hidden Tana Feature: Formula Fields - kate&#39;s lab notebook">
   <meta property="og:type" content="article">
   <meta name="description" content="">
 
@@ -32,7 +32,7 @@
 
   <article class="post">
     <header class="post-header">
-      <h1 class="post-title">Hidden Tana Feature: Formula Nodes</h1>
+      <h1 class="post-title">Hidden Tana Feature: Formula Fields</h1>
        
 <span class="tags">
    <a itemprop="sameAs" href="/tags/tana/">tana</a></span>
@@ -41,26 +41,24 @@
       <time class="post-date" datetime="2026-04-18 15:44:21 &#43;0200">18 Apr 2026</time>
     </header>
 
-    <p><em>If you're just interested in the how-to &ndash; you can <a href="#core-content">jump past my context</a>.</em><br>
-<em>If you're just looking for the formula function reference, you can <a href="#functions">jump to that, too</a>.</em></p>
+    <p><em>If you&rsquo;re just interested in the how-to &ndash; you can <a href="#core-content">jump past my context</a>.</em><br>
+<em>If you&rsquo;re just looking for the formula function reference, you can <a href="#functions">jump to that, too</a>.</em></p>
 <p><a href="https://outliner.tana.inc/">Tana Outliner</a> is a pretty cool piece of note-taking/&ldquo;personal knowledge management &quot; software &ndash; despite their heavy advertisement of AI interactivity &ndash; which manages mostly to deliver on the promise of letting you do very little work regarding <em>data capture</em>, while still making <em>data retrieval</em> possible.</p>
-<p>It's nowhere near as &ldquo;infinitely flexible&rdquo; as tools like <a href="https://obsidian.md/">Obsidian</a>; but in trading off that flexibility, it also frees you from thinking of things like &ldquo;Where in my filesystem did I put that note?&quot;. Instead, it's an ad-hoc &ldquo;knowledge database&rdquo; that successfully shapes relations around small bits of trivial data entry.</p>
-<p>This database model makes you <em>feel</em> like Tana should be the kind of database you can easily query for things like <em>&ldquo;How much money did I spend on projects that I started but didn't finish, this year?&quot;</em>, or &ndash; if you're like my wife &ndash; <em>&ldquo;How many Smash matches did I win while playing as Corrin?&quot;</em>.</p>
-<p>Tana features <a href="https://outliner.tana.inc/docs/search-nodes">live search nodes</a> that can help you do simple queries like &ldquo;show all of the notes <em>tagged #project</em> with a <em>status field</em> set to <em>unfinished</em> and a <em>start date</em> within <em>this year</em>, and sum the <em>cost</em> column&rdquo;; and that usually works pretty well &ndash; but it doesn't given you much control over how the data is displayed, or allow you to have fields that are <strong>based on the values of other fields</strong>. This seems like a pretty glaring omission, especially when you look at the competition from omnipresent products like Notion.</p>
-<p>Luckily, most of Tana's internal features are implemented <em>in Tana</em>, even when they're not quite surfaced that way. That means that we can take advantage of the same internals that drive things like Tana's Live Search &ndash; and its <em>sum columns</em> to squeeze a bit more out of Tana.</p>
+<p>It&rsquo;s nowhere near as &ldquo;infinitely flexible&rdquo; as tools like <a href="https://obsidian.md/">Obsidian</a>; but in trading off that flexibility, it also frees you from thinking of things like &ldquo;Where in my filesystem did I put that note?&rdquo;. Instead, it&rsquo;s an ad-hoc &ldquo;knowledge database&rdquo; that successfully shapes relations around small bits of trivial data entry.</p>
+<p>This database model makes you <em>feel</em> like Tana should be the kind of database you can easily query for things like <em>&ldquo;How much money did I spend on projects that I started but didn&rsquo;t finish, this year?&rdquo;</em>, or &ndash; if you&rsquo;re like my wife &ndash; <em>&ldquo;How many Smash matches did I win while playing as Corrin?&rdquo;</em>.</p>
+<p>Tana features <a href="https://outliner.tana.inc/docs/search-nodes">live search nodes</a> that can help you do simple queries like &ldquo;show all of the notes <em>tagged #project</em> with a <em>status field</em> set to <em>unfinished</em> and a <em>start date</em> within <em>this year</em>, and sum the <em>cost</em> column&rdquo;; and that usually works pretty well &ndash; but it doesn&rsquo;t given you much control over how the data is displayed, or allow you to have fields that are <strong>based on the values of other fields</strong>. This seems like a pretty glaring omission, especially when you look at the competition from omnipresent products like Notion.</p>
+<p>Luckily, most of Tana&rsquo;s internal features are implemented <em>in Tana</em>, even when they&rsquo;re not quite surfaced that way. That means that we can take advantage of the same internals that drive things like Tana&rsquo;s Live Search &ndash; and its <em>sum columns</em> to squeeze a bit more out of Tana.</p>
 <h2 id="core-content">Formula &lsquo;Fields&rsquo;</h2>
-<p>To accomplish fields whose values are <em>based on other fields</em>, we'll start off by creating a Tana <em>field</em>, e.g. by using the shortcut &lsquo;&gt;&rsquo; on a new node. Then, we'll do something that's surprisingly well-surfaced for how undocumented it is: we'll open the command palette (e.g. with Ctrl+K or Cmd+K) and then select &ldquo;Set Formula = Yes&rdquo;.</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-new.png"
-         alt="close up of a tana figure now bearing a new icon that appears as an &#39;fx&#39;, titled &#39;Show forumla&#39; on a screen reader"/> 
+<p>To accomplish fields whose values are <em>based on other fields</em>, we&rsquo;ll start off by creating a Tana <em>field</em>, e.g. by using the shortcut &lsquo;&gt;&rsquo; on a new node. Then, we&rsquo;ll do something that&rsquo;s surprisingly well-surfaced for how undocumented it is: we&rsquo;ll open the command palette (e.g. with Ctrl+K or Cmd+K) and then select &ldquo;Set Formula = Yes&rdquo;.</p>
+<figure><img src="/post-media/tana-formulae/formula-node-new.png"
+    alt="close up of a tana figure now bearing a new icon that appears as an &#39;fx&#39;, titled &#39;Show forumla&#39; on a screen reader">
 </figure>
 
-<p>Note that this field no longer has a value to be edited: while we can give it a title, the area to the right of the &lsquo;fx&rsquo; <em>show formula</em> button has changed into something that will &ndash; in a moment &ndash; show the output of the formula we're creating.</p>
-<p>The real magic happens when we click that <em>show formula</em> button &ndash; and the field suddenly becomes editable again. Now, instead of entering normal data, Tana will process each node as a string <em>function name</em>; with function arguments provided as <em>children</em> of the node <em>containing the function name</em>. Spoiler alert: the available functions aren't documented in Tana, but I've <a href="#functions">documented them below</a>.</p>
-<p>Let's say we had two existing fields &ndash; we'll call them <em>rectangle length</em> and <em>rectangle width</em> &ndash; and we wanted to compute the <em>rectangle area</em>, which we can get by multiplying these two fields together. We'll use the multiply function, which we can enter by typing in the <code>multiply</code> function ( or its shorthand of a single <code>*</code>) as our function node:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-asterisk.png"
-         alt="close up of two fields -- rectangle length with a value of 10, and rectangle width with a value of 20, and our formula field, in edit mode, with just an asterisk function name as its value"/> 
+<p>Note that this field no longer has a value to be edited: while we can give it a title, the area to the right of the &lsquo;fx&rsquo; <em>show formula</em> button has changed into something that will &ndash; in a moment &ndash; show the output of the formula we&rsquo;re creating.</p>
+<p>The real magic happens when we click that <em>show formula</em> button &ndash; and the field suddenly becomes editable again. Now, instead of entering normal data, Tana will process each node as a string <em>function name</em>; with function arguments provided as <em>children</em> of the node <em>containing the function name</em>. Spoiler alert: the available functions aren&rsquo;t documented in Tana, but I&rsquo;ve <a href="#functions">documented them below</a>.</p>
+<p>Let&rsquo;s say we had two existing fields &ndash; we&rsquo;ll call them <em>rectangle length</em> and <em>rectangle width</em> &ndash; and we wanted to compute the <em>rectangle area</em>, which we can get by multiplying these two fields together. We&rsquo;ll use the multiply function, which we can enter by typing in the <code>multiply</code> function ( or its shorthand of a single <code>*</code>) as our function node:</p>
+<figure><img src="/post-media/tana-formulae/formula-node-asterisk.png"
+    alt="close up of two fields -- rectangle length with a value of 10, and rectangle width with a value of 20, and our formula field, in edit mode, with just an asterisk function name as its value">
 </figure>
 
 <p>This <em>function node</em> will multiply any values present in its <em>children</em> &ndash; which can be any of three things:</p>
@@ -69,68 +67,60 @@
 <li><strong>references to values</strong>, which we enter in as typical Tana <a href="https://outliner.tana.inc/docs/nodes-and-references">node references</a>; or</li>
 <li><strong>additional functions</strong>, which then can have their own arguments as their own children.</li>
 </ul>
-<p>In our example, we'll add in two <em>references</em> to the field values captured above by holding <em>alt</em> (<em>option</em> on macOS) and dragging the field values into our formula:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-references.png"
-         alt="our same formula node, but now with two Tana references to the _10_ and _20_ we had entered above as children of the asterisk node"/> 
+<p>In our example, we&rsquo;ll add in two <em>references</em> to the field values captured above by holding <em>alt</em> (<em>option</em> on macOS) and dragging the field values into our formula:</p>
+<figure><img src="/post-media/tana-formulae/formula-node-references.png"
+    alt="our same formula node, but now with two Tana references to the _10_ and _20_ we had entered above as children of the asterisk node">
 </figure>
 
-<p>If we then exit formula-entry mode by clicking the <em>show formula</em> button again, we're now greeted with a cheerful multiplication of our two values:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-simple-multiply.png"
-         alt="our formula node now shows the value &#39;200&#39;, a multiplication of our references"/> 
+<p>If we then exit formula-entry mode by clicking the <em>show formula</em> button again, we&rsquo;re now greeted with a cheerful multiplication of our two values:</p>
+<figure><img src="/post-media/tana-formulae/formula-node-simple-multiply.png"
+    alt="our formula node now shows the value &#39;200&#39;, a multiplication of our references">
 </figure>
 
-<p>Of course, this isn't nearly as useful as it could be &ndash; since those references always refer to those two particular field <em>values</em>. What if we want to use this in a template, e.g. in the content we specify for a <a href="https://outliner.tana.inc/docs/supertags">supertag</a>?</p>
+<p>Of course, this isn&rsquo;t nearly as useful as it could be &ndash; since those references always refer to those two particular field <em>values</em>. What if we want to use this in a template, e.g. in the content we specify for a <a href="https://outliner.tana.inc/docs/supertags">supertag</a>?</p>
 <h2 id="referencing-other-fields">Referencing other Fields</h2>
 <p>Fortunately, Tana has functions that allow us to look up the value of a <em>particular field</em> on a relevant node, which is aptly named <code>lookup</code>. Instead of the direct references to our <em>field values</em>, we can return to <em>show formula</em> mode, and insert a node with the text <code>lookup</code>:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-lookupField-empty.png"
-         alt="the same fornula node, but with both references replaced by the simple string &#39;lookup&#39;"/> 
+<figure><img src="/post-media/tana-formulae/formula-node-lookupField-empty.png"
+    alt="the same fornula node, but with both references replaced by the simple string &#39;lookup&#39;">
 </figure>
 
-<p><em><em>Note:</em> I've used <code>multiply</code> instead of an asterisk, here &ndash; but the two are aliases, and thus equivalent. You can use either one, and in this document I'll alternate between them to drive that point home.</em></p>
-<p>Since <code>lookup</code> is a function that takes an argument itself, we'll need to child nodes to each <code>lookup</code> indicating which field we'd like to get the value of. These require <em>field references</em> &ndash; which we can get in one of two ways:</p>
+<p><em><em>Note:</em> I&rsquo;ve used <code>multiply</code> instead of an asterisk, here &ndash; but the two are aliases, and thus equivalent. You can use either one, and in this document I&rsquo;ll alternate between them to drive that point home.</em></p>
+<p>Since <code>lookup</code> is a function that takes an argument itself, we&rsquo;ll need to child nodes to each <code>lookup</code> indicating which field we&rsquo;d like to get the value of. These require <em>field references</em> &ndash; which we can get in one of two ways:</p>
 <ul>
 <li>We can start the child node with the <code>@</code> symbol, opening an autocomplete dialog that will help us search for the field reference; or</li>
 <li>We can click on the relevant field, open the command palette, and then select <em>Copy node link</em>. We can then paste the copied reference into our target field.</li>
 </ul>
-<p>We'll add <em>field references</em> to our length and width fields, each specified as children (&lsquo;arguments&rsquo;) of our <code>lookup</code> function node:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-lookupField-filled.png"
-         alt="the same formula node, but with both &#39;lookup&#39; functions now having a field reference as a child node"/> 
+<p>We&rsquo;ll add <em>field references</em> to our length and width fields, each specified as children (&lsquo;arguments&rsquo;) of our <code>lookup</code> function node:</p>
+<figure><img src="/post-media/tana-formulae/formula-node-lookupField-filled.png"
+    alt="the same formula node, but with both &#39;lookup&#39; functions now having a field reference as a child node">
 </figure>
 
 <p>If we exit <em>show formula</em> mode, we now have successfully computed the area of our rectangle &ndash; and using only the local field values!</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-lookupField-complete.png"
-         alt="our completed formula node, now showing that it&#39;s computed 10 * 20 to 200"/> 
+<figure><img src="/post-media/tana-formulae/formula-node-lookupField-complete.png"
+    alt="our completed formula node, now showing that it&#39;s computed 10 * 20 to 200">
 </figure>
 
 <p><em><em>Note</em>: technically, <code>lookup</code> takes two arguments as child nodes; but the second is optional. Helpfully, if not provided, it defaults to referencing the <em>parent node</em> that our formula field belongs to; equivalent to providing the <code>SELF</code> function defined below as our second argument.</em></p>
 <h4 id="formulas-work-live">Formulas work live</h4>
 <p>A cool feature of <em>formula fields</em> is that the work live &ndash; which means that if we click on after our <em>rectangle width</em> of 20 and backspace away the last zero, Tana instantly updates our derived field:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-node-lookupField-tweaked.png"
-         alt="our formula node updates live, so it now succesfully shows that 10 * 2 is 20"/> 
+<figure><img src="/post-media/tana-formulae/formula-node-lookupField-tweaked.png"
+    alt="our formula node updates live, so it now succesfully shows that 10 * 2 is 20">
 </figure>
 
 <h4 id="formulas-can-reference-formulas">Formulas can reference formulas</h4>
-<p>Another cool feature of <em>formula fields</em> is that they're still fields &ndash; which means we can use them directly in other computations. So, if we wanted to, we could easily figure out the volume of a <em>prism</em> with a base of this rectangle:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-prism-source.png"
-         alt="the same formula components, but we&#39;ve added a &#39;prism height&#39; field with a value of 2, and then a new formula node that computes the product of a LOOKUP of our original formula node, and the new field we added"/> 
+<p>Another cool feature of <em>formula fields</em> is that they&rsquo;re still fields &ndash; which means we can use them directly in other computations. So, if we wanted to, we could easily figure out the volume of a <em>prism</em> with a base of this rectangle:</p>
+<figure><img src="/post-media/tana-formulae/formula-prism-source.png"
+    alt="the same formula components, but we&#39;ve added a &#39;prism height&#39; field with a value of 2, and then a new formula node that computes the product of a LOOKUP of our original formula node, and the new field we added">
 </figure>
 
-<p>If we exit out of <em>show formula</em> mode, we can see that everything's worked exactly as we'd hoped:</p>
-<figure>
-    <img src="/post-media/tana-formulae/formula-prism-result.png"
-         alt="exiting show formula mode shows the result we&#39;d hope for: 20 * 10 * 2 = 400"/> 
+<p>If we exit out of <em>show formula</em> mode, we can see that everything&rsquo;s worked exactly as we&rsquo;d hoped:</p>
+<figure><img src="/post-media/tana-formulae/formula-prism-result.png"
+    alt="exiting show formula mode shows the result we&#39;d hope for: 20 * 10 * 2 = 400">
 </figure>
 
 <h1 id="functions">Formula Functions</h1>
-<p>Unfortunately, as mentioned above, formula node functionality is currently entirely undocumented. To make up for that, I've copy-pasted my own notes on how each of the various <em>formula functions</em> work, exported directly from my Tana workspace:</p>
-<p>The order here is preserved from the way they're defined in Tana's javascript; which seems to group related functions.</p>
+<p>Unfortunately, as mentioned above, formula node functionality is currently entirely undocumented. To make up for that, I&rsquo;ve copy-pasted my own notes on how each of the various <em>formula functions</em> work, exported directly from my Tana workspace:</p>
+<p>The order here is preserved from the way they&rsquo;re defined in Tana&rsquo;s javascript; which seems to group related functions.</p>
 <hr>
 <p>The following functions seem to exist on formula nodes, with <em>child nodes</em> being their arguments. Functions are a node with that contains only their name as a string, any child nodes on the function node are taken as arguments.</p>
 <ul>
@@ -183,7 +173,7 @@
 <li><code>/</code>  - alias for <code>divide</code></li>
 <li><code>findInstance</code>  - finds all nodes of a given <em>type</em> (e.g. supertag or base type) which exist either <em>above</em> (parent-wards) or <em>below</em> (child-wards) the given node
 <ul>
-<li><strong>first child:</strong> a reference to the type we'd like to search for; e.g. a reference to a supertag</li>
+<li><strong>first child:</strong> a reference to the type we&rsquo;d like to search for; e.g. a reference to a supertag</li>
 <li><strong>second child:</strong> sets the search direction; either the string ABOVE  or BELOW</li>
 <li><strong>third child:</strong> the node to search with respect to; defaults to SELF</li>
 </ul>
@@ -206,7 +196,7 @@
 <li><strong>second child:</strong> a reference to the node we want to look for fields on, or an array of such references; defaults to SELF</li>
 </ul>
 </li>
-<li><code>lookupField</code> - looks up a <em>field</em>&lsquo;s contents __given a reference to it; while <code>lookup</code> will return the field's value, <code>lookupField</code> will return a reference to those contents
+<li><code>lookupField</code> - looks up a <em>field</em>&rsquo;s contents __given a reference to it; while <code>lookup</code> will return the field&rsquo;s value, <code>lookupField</code> will return a reference to those contents
 <ul>
 <li><strong>first child:</strong> a reference to the field we want to get the data for</li>
 <li>this can be gotten with CTRL+K, then <em>copy link to node</em></li>
@@ -218,8 +208,8 @@
 <ul>
 <li><strong>first argument</strong>: an array of nodes to run the filter on</li>
 <li><strong>second argument:</strong> a search expression to apply to the given set of nodes, exactly as you would enter it into the search query builder, except as a single node</li>
-<li>&ldquo;except as a single node&rdquo; here means that there's no automatic top-level <em>AND</em>, so you'll need to add that in yourself if you want to AND together multiple conditions</li>
-<li>it's likely easiest to build the query as a single (e.g. AND) node there, and then move it over</li>
+<li>&ldquo;except as a single node&rdquo; here means that there&rsquo;s no automatic top-level <em>AND</em>, so you&rsquo;ll need to add that in yourself if you want to AND together multiple conditions</li>
+<li>it&rsquo;s likely easiest to build the query as a single (e.g. AND) node there, and then move it over</li>
 </ul>
 </li>
 <li><code>childrenOf</code> - resolves references to all children of a given node
@@ -237,7 +227,7 @@
 <li><code>SELF</code> - yields a reference the <em>parent node</em> for the field whose formula is being set</li>
 <li><code>CREATED</code>  - returns the creation time for SELF
 <ul>
-<li><strong>first child:</strong> format string, as in Tana's other date format strings</li>
+<li><strong>first child:</strong> format string, as in Tana&rsquo;s other date format strings</li>
 </ul>
 </li>
 <li><code>CURRENT_USER</code> - returns the login for the current user</li>
@@ -264,14 +254,14 @@
 <li><code>backlink</code>  - find all nodes with a given field (&ldquo;F&rdquo;) that references the given node (&ldquo;N&rdquo;)
 <ul>
 <li><strong>first child, &ldquo;F&rdquo;</strong>: a reference to the field which will be searched for references to the given node</li>
-<li>**second child, &ldquo;N&rdquo;:  **the node to be searched <em>for</em>; defaults to <code>SELF</code></li>
+<li><strong>second child, &ldquo;N&rdquo;</strong>: the node to be searched <em>for</em>; defaults to <code>SELF</code></li>
 </ul>
 </li>
-<li><code>ownerOf</code> - returns the <em>owner</em> for the given node (every Tana node has a single <em>owner</em>, where it conceptually resides, even if it's referenced in multiple <em>parents)</em></li>
+<li><code>ownerOf</code> - returns the <em>owner</em> for the given node (every Tana node has a single <em>owner</em>, where it conceptually resides, even if it&rsquo;s referenced in multiple <em>parents)</em></li>
 <li><code>formatDate</code>  - formats a given date
 <ul>
 <li><strong>first child:</strong> the date to format, which should be a parseable date string, rather than as a reference</li>
-<li><strong>second child:</strong> the format string, as in Tana's other date format strings</li>
+<li><strong>second child:</strong> the format string, as in Tana&rsquo;s other date format strings</li>
 </ul>
 </li>
 <li><code>emojiCount</code>  - counts the number of emoji in a single node; <em>child nodes are ignored</em>
@@ -288,7 +278,7 @@
       <footer class="site-footer">
         <span itemscope itemtype="http://schema.org/Person">
           <link itemprop="url" href="/">
-          <span itemprop="name"></span>
+          <span itemprop="name">Kate Temkin</span>
 
           <span>,</span>
           <span itemprop="jobTitle">CEO &amp; Engineering Lead</span> at

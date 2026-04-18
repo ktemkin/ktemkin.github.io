@@ -3,11 +3,11 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="generator" content="Hugo 0.62.0" />
+  <meta name="generator" content="Hugo 0.155.3">
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="">
+  <meta name="author" content="Kate Temkin">
   <meta property="og:url" content="/post/serdes-oob/">
 
   <title>Summary: ECP5 SerDes Out-Of-Band Tx/Rx - kate&#39;s lab notebook</title>
@@ -44,52 +44,52 @@
     <p><em>This post is a summary of the findings from <a href="/post/serdes-lfps/">my look at using the ECP5 SerDes for USB3 LFPS</a> for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.</em></p>
 <p>Quick summary:</p>
 <ul>
-<li>In addition to using the ECP5's SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use.</li>
+<li>In addition to using the ECP5&rsquo;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use.</li>
 <li>This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes
 operation; and thus requires a configured SerDes.</li>
 </ul>
 <h4 id="documentation">Documentation</h4>
 <p>To use this functionality, add the following to the invocation of the SerDES <code>DCUA</code> block, replacing <code>CHX</code> with your channel number:</p>
 <table>
-<thead>
-<tr>
-<th align="left">name</th>
-<th align="center">type</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left"><code>CHX_LDR_RX2CORE_SEL</code></td>
-<td align="center">parameter</td>
-<td>Set this to <code>1</code> to enable receiving out-of-band data; works in parallel with normal SerDes operation.</td>
-</tr>
-<tr>
-<td align="left"><code>CHX_LDR_RX2CORE</code></td>
-<td align="center">output</td>
-<td>When <code>CHX_LDR_RX2CORE1_SEL</code> is set, this carries input value from the SerDes Rx input. Captured post differential input, and thus is single-ended.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"><code>CHX_LDR_CORE2TX_SEL</code></td>
-<td align="center">parameter</td>
-<td>Set this to <code>1</code> to drive the SerDes Tx output directly; remains in affect until overridden via a <em>SerDes Client Interface</em> register. You most likely want to leave this at <code>0</code>.</td>
-</tr>
-<tr>
-<td align="left"><code>CHX_FFC_LDR_CORE2TX_EN</code></td>
-<td align="center">input</td>
-<td>When <code>CHX_LDR_CORE2TX_SEL</code> is <code>0</code>, this controls whether the SerDes Tx output is driven by the SerDes (<code>0</code>) or by the <code>CHX_LDR_CORE2TX</code> signal (<code>1</code>).</td>
-</tr>
-<tr>
-<td align="left"><code>CHX_LDR_CORE2TX</code></td>
-<td align="center">input</td>
-<td>When this is enabled by either <code>CHX_LDR_CORE2TX_SEL</code> or <code>CHX_FFC_LDR_CORE2TX_EN</code>, the value provided to this signal is directly routed to the SerDes Tx output.</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">name</th>
+          <th style="text-align: center">type</th>
+          <th>description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>CHX_LDR_RX2CORE_SEL</code></td>
+          <td style="text-align: center">parameter</td>
+          <td>Set this to <code>1</code> to enable receiving out-of-band data; works in parallel with normal SerDes operation.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>CHX_LDR_RX2CORE</code></td>
+          <td style="text-align: center">output</td>
+          <td>When <code>CHX_LDR_RX2CORE1_SEL</code> is set, this carries input value from the SerDes Rx input. Captured post differential input, and thus is single-ended.</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>CHX_LDR_CORE2TX_SEL</code></td>
+          <td style="text-align: center">parameter</td>
+          <td>Set this to <code>1</code> to drive the SerDes Tx output directly; remains in affect until overridden via a <em>SerDes Client Interface</em> register. You most likely want to leave this at <code>0</code>.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>CHX_FFC_LDR_CORE2TX_EN</code></td>
+          <td style="text-align: center">input</td>
+          <td>When <code>CHX_LDR_CORE2TX_SEL</code> is <code>0</code>, this controls whether the SerDes Tx output is driven by the SerDes (<code>0</code>) or by the <code>CHX_LDR_CORE2TX</code> signal (<code>1</code>).</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>CHX_LDR_CORE2TX</code></td>
+          <td style="text-align: center">input</td>
+          <td>When this is enabled by either <code>CHX_LDR_CORE2TX_SEL</code> or <code>CHX_FFC_LDR_CORE2TX_EN</code>, the value provided to this signal is directly routed to the SerDes Tx output.</td>
+      </tr>
+  </tbody>
 </table>
 <h4 id="warning">Warning</h4>
 <p>These descriptions are based on my initial experiments; and should be taken with a grain of salt. :)</p>
@@ -101,7 +101,7 @@ operation; and thus requires a configured SerDes.</li>
       <footer class="site-footer">
         <span itemscope itemtype="http://schema.org/Person">
           <link itemprop="url" href="/">
-          <span itemprop="name"></span>
+          <span itemprop="name">Kate Temkin</span>
 
           <span>,</span>
           <span itemprop="jobTitle">CEO &amp; Engineering Lead</span> at

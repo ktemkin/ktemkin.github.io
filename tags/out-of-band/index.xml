@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>out-of-band on kate&#39;s lab notebook</title>
+    <title>Out-of-Band on kate&#39;s lab notebook</title>
     <link>/tags/out-of-band/</link>
-    <description>Recent content in out-of-band on kate&#39;s lab notebook</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Out-of-Band on kate&#39;s lab notebook</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 14 Sep 2020 10:04:21 -0600</lastBuildDate>
-    
-	<atom:link href="/tags/out-of-band/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="/tags/out-of-band/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Summary: ECP5 SerDes Out-Of-Band Tx/Rx</title>
       <link>/post/serdes-oob/</link>
       <pubDate>Mon, 14 Sep 2020 10:04:21 -0600</pubDate>
-      
       <guid>/post/serdes-oob/</guid>
-      <description>This post is a summary of the findings from my look at using the ECP5 SerDes for USB3 LFPS for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.
-Quick summary:
- In addition to using the ECP5&#39;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use. This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes operation; and thus requires a configured SerDes.</description>
+      <description>&lt;p&gt;&lt;em&gt;This post is a summary of the findings from &lt;a href=&#34;/post/serdes-lfps/&#34;&gt;my look at using the ECP5 SerDes for USB3 LFPS&lt;/a&gt; for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Quick summary:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;In addition to using the ECP5&amp;rsquo;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use.&lt;/li&gt;&#xA;&lt;li&gt;This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes&#xA;operation; and thus requires a configured SerDes.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;documentation&#34;&gt;Documentation&lt;/h4&gt;&#xA;&lt;p&gt;To use this functionality, add the following to the invocation of the SerDES &lt;code&gt;DCUA&lt;/code&gt; block, replacing &lt;code&gt;CHX&lt;/code&gt; with your channel number:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

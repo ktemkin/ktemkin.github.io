@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>wavegens on kate&#39;s lab notebook</title>
+    <title>Wavegens on kate&#39;s lab notebook</title>
     <link>/tags/wavegens/</link>
-    <description>Recent content in wavegens on kate&#39;s lab notebook</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Wavegens on kate&#39;s lab notebook</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 28 Mar 2023 11:38:39 -0600</lastBuildDate>
-    
-	<atom:link href="/tags/wavegens/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="/tags/wavegens/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Quick look at the Hanmatek HO102S Portable Oscilloscope</title>
       <link>/post/hanmatek-ho102s/</link>
       <pubDate>Tue, 28 Mar 2023 11:38:39 -0600</pubDate>
-      
       <guid>/post/hanmatek-ho102s/</guid>
-      <description>I&#39;ve recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &amp;ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.
-Options like the Analog Discovery 2 are nice; but their readouts take up screen space; and they&#39;re often limited bandwidth &amp;ndash; so I thought I&#39;d try out a cheaper option in a DMM form factor.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &amp;ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.&lt;/p&gt;&#xA;&lt;p&gt;Options like the &lt;a href=&#34;https://digilent.com/shop/analog-discovery-2-100ms-s-usb-oscilloscope-logic-analyzer-and-variable-power-supply/&#34;&gt;Analog Discovery 2&lt;/a&gt; are nice; but their readouts take up screen space; and they&amp;rsquo;re often limited bandwidth &amp;ndash; so I thought I&amp;rsquo;d try out a cheaper option in a DMM form factor. I wound up picking up a &lt;a href=&#34;https://www.amazon.com/gp/product/B0BCDMQY4J&#34;&gt;Hanmatek HO102S&lt;/a&gt; &amp;ndash; which isn&amp;rsquo;t from a well-known brand, but &lt;em&gt;is&lt;/em&gt; cheap enough that purchasing one seemed like a relatively low-risk proposition.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

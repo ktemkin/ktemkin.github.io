@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>tana on kate&#39;s lab notebook</title>
+    <title>Tana on kate&#39;s lab notebook</title>
     <link>/tags/tana/</link>
-    <description>Recent content in tana on kate&#39;s lab notebook</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Tana on kate&#39;s lab notebook</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 18 Apr 2026 15:44:21 +0200</lastBuildDate>
-    
-	<atom:link href="/tags/tana/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="/tags/tana/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hidden Tana Feature: Formula Nodes</title>
+      <title>Hidden Tana Feature: Formula Fields</title>
       <link>/post/tana-formulae/</link>
       <pubDate>Sat, 18 Apr 2026 15:44:21 +0200</pubDate>
-      
       <guid>/post/tana-formulae/</guid>
-      <description>If you&#39;re just interested in the how-to &amp;ndash; you can jump past my context.
-If you&#39;re just looking for the formula function reference, you can jump to that, too.
-Tana Outliner is a pretty cool piece of note-taking/&amp;ldquo;personal knowledge management &amp;quot; software &amp;ndash; despite their heavy advertisement of AI interactivity &amp;ndash; which manages mostly to deliver on the promise of letting you do very little work regarding data capture, while still making data retrieval possible.</description>
+      <description>&lt;p&gt;&lt;em&gt;If you&amp;rsquo;re just interested in the how-to &amp;ndash; you can &lt;a href=&#34;#core-content&#34;&gt;jump past my context&lt;/a&gt;.&lt;/em&gt;&lt;br&gt;&#xA;&lt;em&gt;If you&amp;rsquo;re just looking for the formula function reference, you can &lt;a href=&#34;#functions&#34;&gt;jump to that, too&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://outliner.tana.inc/&#34;&gt;Tana Outliner&lt;/a&gt; is a pretty cool piece of note-taking/&amp;ldquo;personal knowledge management &amp;quot; software &amp;ndash; despite their heavy advertisement of AI interactivity &amp;ndash; which manages mostly to deliver on the promise of letting you do very little work regarding &lt;em&gt;data capture&lt;/em&gt;, while still making &lt;em&gt;data retrieval&lt;/em&gt; possible.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

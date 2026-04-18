@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>evaluation boards on kate&#39;s lab notebook</title>
+    <title>Evaluation Boards on kate&#39;s lab notebook</title>
     <link>/tags/evaluation-boards/</link>
-    <description>Recent content in evaluation boards on kate&#39;s lab notebook</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Evaluation Boards on kate&#39;s lab notebook</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 26 Sep 2020 07:06:39 -0600</lastBuildDate>
-    
-	<atom:link href="/tags/evaluation-boards/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="/tags/evaluation-boards/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</title>
       <link>/post/ab07-usb3fmc-wtf/</link>
       <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
-      
       <guid>/post/ab07-usb3fmc-wtf/</guid>
-      <description>I&#39;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been taking a look recently at the Design Gateway AB07-USBFMC module. It turns out that my unit has what seems to be a pretty embarrassing defect.
-I&#39;ve been testing my in-progress USB3 gateware with this PHY; and I&#39;ve been running into an interesting issue: periodically, some of the raw values sent were off by a single bit.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been&#xA;taking a look recently at the &lt;a href=&#34;https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC?qs=5aG0NVq1C4wWGaHs8Oqcww%3D%3D&#34;&gt;Design Gateway AB07-USBFMC module&lt;/a&gt;. It turns out that my unit has what seems to be a pretty&#xA;embarrassing defect.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been testing my in-progress USB3 gateware with this PHY; and I&amp;rsquo;ve been running into an&#xA;interesting issue: periodically, some of the raw values sent were off by a single bit.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>AB07-USB3FMC Notes &amp; Oddities</title>
       <link>/post/ab07-usb3fmc/</link>
       <pubDate>Fri, 25 Sep 2020 21:34:32 -0600</pubDate>
-      
       <guid>/post/ab07-usb3fmc/</guid>
-      <description>If you&#39;re looking to play with commercial USB3 PHY evaluation hardware &amp;ndash; that is, if you&#39;re looking to get a board someone else has designed and built, rather than soldering up your own or experimenting with 5G SerDes &amp;ndash; there seem to be two options available: the HiTech Global FMC_USB3 ($795 USD), or the Design Gateway AB07-USBFMC ($1,650 USD).
-  The USB3FMC sitting atop the Digilent Nexys Video FPGA board   Thanks to Tim Ansell, I&#39;ve been able to get my hands on the AB07-USBFMC; this quick post summarizes my findings so far working with the board.</description>
+      <description>&lt;p&gt;If you&amp;rsquo;re looking to play with &lt;em&gt;commercial&lt;/em&gt; USB3 PHY evaluation hardware &amp;ndash; that is, if you&amp;rsquo;re looking to get a&#xA;board someone else has designed and built, rather than &lt;a href=&#34;https://github.com/mossmann/daisho&#34;&gt;soldering up your own&lt;/a&gt; or &lt;a href=&#34;https://github.com/enjoy-digital/usb3_pipe&#34;&gt;experimenting with&lt;/a&gt;&#xA;&lt;a href=&#34;https://github.com/greatscottgadgets/luna/tree/master/luna/gateware/interface/serdes_phy&#34;&gt;5G SerDes&lt;/a&gt; &amp;ndash; there seem&#xA;to be two options available: the &lt;a href=&#34;http://www.hitechglobal.com/FMCModules/FMC_USB3.htm&#34;&gt;HiTech Global FMC_USB3&lt;/a&gt; ($795 USD),&#xA;or the &lt;a href=&#34;https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC?qs=sGAEpiMZZMu3sxpa5v1qrv1geWH1899TAy5w93UhpbE%3D&#34;&gt;Design Gateway AB07-USBFMC&lt;/a&gt; ($1,650 USD).&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;/post-media/ab07-usb3fmc/usb3_fmc.jpg&#34;&#xA;    alt=&#34;the USB3FMC carrier board is mounted atop another FPGA board&#34;&gt;&lt;figcaption&gt;&#xA;      &lt;h4&gt;The USB3FMC sitting atop the Digilent Nexys Video FPGA board&lt;/h4&gt;&#xA;    &lt;/figcaption&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;Thanks to &lt;a href=&#34;https://twitter.com/mithro/&#34;&gt;Tim Ansell&lt;/a&gt;, I&amp;rsquo;ve been able to get my hands on the &lt;em&gt;AB07-USBFMC&lt;/em&gt;; this quick&#xA;post summarizes my findings so far working with the board.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

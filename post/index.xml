@@ -4,115 +4,79 @@
     <title>Posts on kate&#39;s lab notebook</title>
     <link>/post/</link>
     <description>Recent content in Posts on kate&#39;s lab notebook</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 18 Apr 2026 15:44:21 +0200</lastBuildDate>
-    
-	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hidden Tana Feature: Formula Nodes</title>
+      <title>Hidden Tana Feature: Formula Fields</title>
       <link>/post/tana-formulae/</link>
       <pubDate>Sat, 18 Apr 2026 15:44:21 +0200</pubDate>
-      
       <guid>/post/tana-formulae/</guid>
-      <description>If you&#39;re just interested in the how-to &amp;ndash; you can jump past my context.
-If you&#39;re just looking for the formula function reference, you can jump to that, too.
-Tana Outliner is a pretty cool piece of note-taking/&amp;ldquo;personal knowledge management &amp;quot; software &amp;ndash; despite their heavy advertisement of AI interactivity &amp;ndash; which manages mostly to deliver on the promise of letting you do very little work regarding data capture, while still making data retrieval possible.</description>
+      <description>&lt;p&gt;&lt;em&gt;If you&amp;rsquo;re just interested in the how-to &amp;ndash; you can &lt;a href=&#34;#core-content&#34;&gt;jump past my context&lt;/a&gt;.&lt;/em&gt;&lt;br&gt;&#xA;&lt;em&gt;If you&amp;rsquo;re just looking for the formula function reference, you can &lt;a href=&#34;#functions&#34;&gt;jump to that, too&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://outliner.tana.inc/&#34;&gt;Tana Outliner&lt;/a&gt; is a pretty cool piece of note-taking/&amp;ldquo;personal knowledge management &amp;quot; software &amp;ndash; despite their heavy advertisement of AI interactivity &amp;ndash; which manages mostly to deliver on the promise of letting you do very little work regarding &lt;em&gt;data capture&lt;/em&gt;, while still making &lt;em&gt;data retrieval&lt;/em&gt; possible.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Quick look at the Hanmatek HO102S Portable Oscilloscope</title>
       <link>/post/hanmatek-ho102s/</link>
       <pubDate>Tue, 28 Mar 2023 11:38:39 -0600</pubDate>
-      
       <guid>/post/hanmatek-ho102s/</guid>
-      <description>I&#39;ve recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &amp;ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.
-Options like the Analog Discovery 2 are nice; but their readouts take up screen space; and they&#39;re often limited bandwidth &amp;ndash; so I thought I&#39;d try out a cheaper option in a DMM form factor.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve recently been checking out a few options for inexpensive, DMM-form-factor oscilloscopes &amp;ndash; mostly out of a desire to be able to work on hardware from anywhere with just my tiny laptop, a tiny projector, and some minimal equipment.&lt;/p&gt;&#xA;&lt;p&gt;Options like the &lt;a href=&#34;https://digilent.com/shop/analog-discovery-2-100ms-s-usb-oscilloscope-logic-analyzer-and-variable-power-supply/&#34;&gt;Analog Discovery 2&lt;/a&gt; are nice; but their readouts take up screen space; and they&amp;rsquo;re often limited bandwidth &amp;ndash; so I thought I&amp;rsquo;d try out a cheaper option in a DMM form factor. I wound up picking up a &lt;a href=&#34;https://www.amazon.com/gp/product/B0BCDMQY4J&#34;&gt;Hanmatek HO102S&lt;/a&gt; &amp;ndash; which isn&amp;rsquo;t from a well-known brand, but &lt;em&gt;is&lt;/em&gt; cheap enough that purchasing one seemed like a relatively low-risk proposition.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Including non-Amaranth Instances in Amaranth [repost]</title>
       <link>/post/amaranth-instance/</link>
       <pubDate>Wed, 18 Aug 2021 04:30:18 -0600</pubDate>
-      
       <guid>/post/amaranth-instance/</guid>
-      <description>A common question in the #amaranth-lang Libera.Chat channel asks how one can include a non-Amaranth component&amp;mdash;e.g. a library cell or a component from a Verilog design&amp;mdash;so it seemed worth writing up a quick note we can link to answer that.
-Invoking a Component The key is to create an amaranth.Instance component, as in the following example:
-m.submodules.my_component = Instance(&amp;#34;CustomFlipFlop&amp;#34;, # Attributes a_HasAsyncReset = False, # Parameters p_NumberInputs = &amp;#34;1&amp;#34;, p_NumberOutputs = &amp;#34;1&amp;#34;, # Inputs i_D = my_input_signal, # Ouptuts o_Q = my_output_signal, # Bidirectional / inouts io_DZ = my_tristate_pin ) The first parameter to the Instance constructor is the name of the component to be instantiated, which usually matches e.</description>
+      <description>&lt;p&gt;A common question in the &lt;code&gt;#amaranth-lang&lt;/code&gt; Libera.Chat channel asks how one can include a non-Amaranth component&amp;mdash;e.g. a library cell or a component from a Verilog design&amp;mdash;so it seemed worth writing up a quick note we can link to answer  that.&lt;/p&gt;&#xA;&lt;h4 id=&#34;invoking-a-component&#34;&gt;Invoking a Component&lt;/h4&gt;&#xA;&lt;p&gt;The key is to create an &lt;code&gt;amaranth.Instance&lt;/code&gt; component, as in the following example:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;m&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;submodules&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;my_component &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Instance(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;CustomFlipFlop&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Attributes&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;a_HasAsyncReset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Parameters&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;p_NumberInputs  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;p_NumberOutputs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Inputs&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;i_D &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_input_signal,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Ouptuts&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;o_Q &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_output_signal,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Bidirectional / inouts&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;io_DZ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_tristate_pin&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The first parameter to the &lt;code&gt;Instance&lt;/code&gt; constructor is the name of the component to be instantiated, which usually matches e.g. your library cell instance, or your Verilog module name. The remaining (keyword) arguments are the inputs and outputs to the Instance. As these inputs/outputs to this function currently lack type information, we&amp;rsquo;ll need to prefix each name with a short prefix, depending on its type:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Including non-nMigen Instances in nMigen</title>
       <link>/post/nmigen-instance/</link>
       <pubDate>Wed, 18 Aug 2021 04:30:18 -0600</pubDate>
-      
       <guid>/post/nmigen-instance/</guid>
-      <description>A common question in the #nMigen Libera.Chat channel asks how one can include a non-nMigen component&amp;mdash;e.g. a library cell or a component from a Verilog design&amp;mdash;so it seemed worth writing up a quick note we can link to answer that.
-Invoking a Component The key is to create an nmigen.Instance component, as in the following example:
-m.submodules.my_component = Instance(&amp;#34;CustomFlipFlop&amp;#34;, # Attributes a_HasAsyncReset = False, # Parameters p_NumberInputs = &amp;#34;1&amp;#34;, p_NumberOutputs = &amp;#34;1&amp;#34;, # Inputs i_D = my_input_signal, # Ouptuts o_Q = my_output_signal, # Bidirectional / inouts io_DZ = my_tristate_pin ) The first parameter to the Instance constructor is the name of the component to be instantiated, which usually matches e.</description>
+      <description>&lt;p&gt;A common question in the &lt;code&gt;#nMigen&lt;/code&gt; Libera.Chat channel asks how one can include a non-nMigen component&amp;mdash;e.g. a library cell or a component from a Verilog design&amp;mdash;so it seemed worth writing up a quick note we can link to answer  that.&lt;/p&gt;&#xA;&lt;h4 id=&#34;invoking-a-component&#34;&gt;Invoking a Component&lt;/h4&gt;&#xA;&lt;p&gt;The key is to create an &lt;code&gt;nmigen.Instance&lt;/code&gt; component, as in the following example:&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;m&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;submodules&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;my_component &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Instance(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;CustomFlipFlop&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Attributes&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;a_HasAsyncReset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Parameters&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;p_NumberInputs  &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;p_NumberOutputs &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Inputs&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;i_D &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_input_signal,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Ouptuts&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;o_Q &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_output_signal,&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;&lt;span style=&#34;color:#75715e&#34;&gt;# Bidirectional / inouts&lt;/span&gt;&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&#x9;&#x9;io_DZ &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; my_tristate_pin&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The first parameter to the &lt;code&gt;Instance&lt;/code&gt; constructor is the name of the component to be instantiated, which usually matches e.g. your library cell instance, or your Verilog module name. The remaining (keyword) arguments are the inputs and outputs to the Instance. As these inputs/outputs to this function currently lack type information, we&amp;rsquo;ll need to prefix each name with a short prefix, depending on its type:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>USB3: why it&#39;s a bit harder than USB2</title>
       <link>/post/why-is-usb3-harder/</link>
       <pubDate>Tue, 06 Oct 2020 16:05:23 -0600</pubDate>
-      
       <guid>/post/why-is-usb3-harder/</guid>
-      <description>A few people on twitter have asked me to explain why the USB3 winds up being much harder to implement than USB2. The answer is more than will fit in a single tweet, so I thought I&#39;d put a quick-but-rough answer, here. This is by no means comprehensive; consider it a longer tweet what a tweet would be given I had more than 240 characters and a proclivity to babble. (I do.</description>
+      <description>&lt;p&gt;A few people on twitter have asked me to explain why the USB3 winds up being much harder to implement than USB2.&#xA;The answer is more than will fit in a single tweet, so I thought I&amp;rsquo;d put a quick-but-rough answer, here. This is&#xA;by no means comprehensive; consider it &lt;del&gt;a longer tweet&lt;/del&gt; what a tweet would be given I had more than 240 characters and a proclivity to babble. (I do.)&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Corrections to: USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB</title>
       <link>/post/mindshare-usb3/</link>
       <pubDate>Sun, 04 Oct 2020 17:10:55 -0600</pubDate>
-      
       <guid>/post/mindshare-usb3/</guid>
-      <description>The MindShare book USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB (ISBN-13: 978-0983646518) is a pretty decent reference for implementers of USB 3.0 / Gen1; but is published with a few factual mistakes &amp;ndash; places where their tables incorrectly copy the standard. This notebook post is here to gather the mistakes I&#39;ve found, so I can report them the publisher all at once.
-Issues thus far (page numbers for first edition):</description>
+      <description>&lt;p&gt;The MindShare book &lt;a href=&#34;https://www.mindshare.com/Books/Titles/USB_3.0_Technology&#34;&gt;&lt;em&gt;USB 3.0 Technology: Comprehensive Guide to SuperSpeed USB&lt;/em&gt;&lt;/a&gt; (ISBN-13: 978-0983646518) is a pretty decent reference for implementers of USB 3.0 / Gen1;&#xA;but is published with a few factual mistakes &amp;ndash; places where their tables incorrectly copy the standard. This notebook post is here to gather the mistakes I&amp;rsquo;ve found, so I can report them the publisher all at once.&lt;/p&gt;&#xA;&lt;p&gt;Issues thus far (page numbers for first edition):&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>AB07-USB3FMC: The $1.65k eval board they can&#39;t be bothered to test</title>
       <link>/post/ab07-usb3fmc-wtf/</link>
       <pubDate>Sat, 26 Sep 2020 07:06:39 -0600</pubDate>
-      
       <guid>/post/ab07-usb3fmc-wtf/</guid>
-      <description>I&#39;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been taking a look recently at the Design Gateway AB07-USBFMC module. It turns out that my unit has what seems to be a pretty embarrassing defect.
-I&#39;ve been testing my in-progress USB3 gateware with this PHY; and I&#39;ve been running into an interesting issue: periodically, some of the raw values sent were off by a single bit.</description>
+      <description>&lt;p&gt;I&amp;rsquo;ve written a bit about my look at &amp;ldquo;commercial off-the-shelf&amp;rdquo; USB3 PHY boards; and have been&#xA;taking a look recently at the &lt;a href=&#34;https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC?qs=5aG0NVq1C4wWGaHs8Oqcww%3D%3D&#34;&gt;Design Gateway AB07-USBFMC module&lt;/a&gt;. It turns out that my unit has what seems to be a pretty&#xA;embarrassing defect.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been testing my in-progress USB3 gateware with this PHY; and I&amp;rsquo;ve been running into an&#xA;interesting issue: periodically, some of the raw values sent were off by a single bit.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>AB07-USB3FMC Notes &amp; Oddities</title>
       <link>/post/ab07-usb3fmc/</link>
       <pubDate>Fri, 25 Sep 2020 21:34:32 -0600</pubDate>
-      
       <guid>/post/ab07-usb3fmc/</guid>
-      <description>If you&#39;re looking to play with commercial USB3 PHY evaluation hardware &amp;ndash; that is, if you&#39;re looking to get a board someone else has designed and built, rather than soldering up your own or experimenting with 5G SerDes &amp;ndash; there seem to be two options available: the HiTech Global FMC_USB3 ($795 USD), or the Design Gateway AB07-USBFMC ($1,650 USD).
-  The USB3FMC sitting atop the Digilent Nexys Video FPGA board   Thanks to Tim Ansell, I&#39;ve been able to get my hands on the AB07-USBFMC; this quick post summarizes my findings so far working with the board.</description>
+      <description>&lt;p&gt;If you&amp;rsquo;re looking to play with &lt;em&gt;commercial&lt;/em&gt; USB3 PHY evaluation hardware &amp;ndash; that is, if you&amp;rsquo;re looking to get a&#xA;board someone else has designed and built, rather than &lt;a href=&#34;https://github.com/mossmann/daisho&#34;&gt;soldering up your own&lt;/a&gt; or &lt;a href=&#34;https://github.com/enjoy-digital/usb3_pipe&#34;&gt;experimenting with&lt;/a&gt;&#xA;&lt;a href=&#34;https://github.com/greatscottgadgets/luna/tree/master/luna/gateware/interface/serdes_phy&#34;&gt;5G SerDes&lt;/a&gt; &amp;ndash; there seem&#xA;to be two options available: the &lt;a href=&#34;http://www.hitechglobal.com/FMCModules/FMC_USB3.htm&#34;&gt;HiTech Global FMC_USB3&lt;/a&gt; ($795 USD),&#xA;or the &lt;a href=&#34;https://www.mouser.com/ProductDetail/Design-Gateway/AB07-USB3FMC?qs=sGAEpiMZZMu3sxpa5v1qrv1geWH1899TAy5w93UhpbE%3D&#34;&gt;Design Gateway AB07-USBFMC&lt;/a&gt; ($1,650 USD).&lt;/p&gt;&#xA;&lt;figure&gt;&lt;img src=&#34;/post-media/ab07-usb3fmc/usb3_fmc.jpg&#34;&#xA;    alt=&#34;the USB3FMC carrier board is mounted atop another FPGA board&#34;&gt;&lt;figcaption&gt;&#xA;      &lt;h4&gt;The USB3FMC sitting atop the Digilent Nexys Video FPGA board&lt;/h4&gt;&#xA;    &lt;/figcaption&gt;&#xA;&lt;/figure&gt;&#xA;&#xA;&lt;p&gt;Thanks to &lt;a href=&#34;https://twitter.com/mithro/&#34;&gt;Tim Ansell&lt;/a&gt;, I&amp;rsquo;ve been able to get my hands on the &lt;em&gt;AB07-USBFMC&lt;/em&gt;; this quick&#xA;post summarizes my findings so far working with the board.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Summary: ECP5 SerDes Out-Of-Band Tx/Rx</title>
       <link>/post/serdes-oob/</link>
       <pubDate>Mon, 14 Sep 2020 10:04:21 -0600</pubDate>
-      
       <guid>/post/serdes-oob/</guid>
-      <description>This post is a summary of the findings from my look at using the ECP5 SerDes for USB3 LFPS for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.
-Quick summary:
- In addition to using the ECP5&#39;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use. This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes operation; and thus requires a configured SerDes.</description>
+      <description>&lt;p&gt;&lt;em&gt;This post is a summary of the findings from &lt;a href=&#34;/post/serdes-lfps/&#34;&gt;my look at using the ECP5 SerDes for USB3 LFPS&lt;/a&gt; for quick reference of how to use the ECP5 SerDes semi-documented out-of-band I/O features.&lt;/em&gt;&lt;/p&gt;&#xA;&lt;p&gt;Quick summary:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;In addition to using the ECP5&amp;rsquo;s SerDes pins to drive the SerDes; the SerDes Tx/Rx pins can also be used as Low-Data-Rate (LDR) outputs/inputs while the SerDes is in use.&lt;/li&gt;&#xA;&lt;li&gt;This is intended to allow transmission/receipt of out-of-band signals in addition to normal SerDes&#xA;operation; and thus requires a configured SerDes.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 id=&#34;documentation&#34;&gt;Documentation&lt;/h4&gt;&#xA;&lt;p&gt;To use this functionality, add the following to the invocation of the SerDES &lt;code&gt;DCUA&lt;/code&gt; block, replacing &lt;code&gt;CHX&lt;/code&gt; with your channel number:&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>USB3 LFPS Using ECP5 SerDes I/O</title>
       <link>/post/serdes-lfps/</link>
       <pubDate>Tue, 01 Sep 2020 11:38:10 -0600</pubDate>
-      
       <guid>/post/serdes-lfps/</guid>
-      <description>Lately, I&#39;ve been developing a USB3 stack, and a USB3 frontend using the ECP5 SerDes. The ECP5 SerDes seems almost perfect for USB3, which shares many of its implementation details with PCIe. However, there are a couple of hitches.
-The more difficult to deal with is support for USB3&#39;s Low Frequency Periodic Signaling (LFPS). LFPS carries small bursts of information via a slow, out-of-band signal, meant to be used before the high-speed USB3 link is established:</description>
+      <description>&lt;p&gt;Lately, I&amp;rsquo;ve been developing a USB3 stack, and a USB3 frontend using the ECP5 SerDes. The ECP5 SerDes seems &lt;em&gt;almost&lt;/em&gt;&#xA;perfect for USB3, which shares many of its implementation details with PCIe. However, there are a couple of hitches.&lt;/p&gt;&#xA;&lt;p&gt;The more difficult to deal with is support for USB3&amp;rsquo;s &lt;em&gt;Low Frequency Periodic Signaling (LFPS)&lt;/em&gt;. LFPS carries small bursts&#xA;of information via a slow, out-of-band signal, meant to be used before the high-speed USB3 link is established:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

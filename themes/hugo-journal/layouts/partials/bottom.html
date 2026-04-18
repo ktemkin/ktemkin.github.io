@@ -14,15 +14,12 @@
 
           <br>
 
-          <a itemprop="sameAs" href="https://ktemk.in" title="Main Blog">Main Blog</a>
-
-
           {{ if isset .Site.Params "githubusername" -}}
           <a itemprop="sameAs" href="https://github.com/{{ .Site.Params.githubUsername }}" title="GitHub">GitHub</a>
           {{- end }}
 
           {{ if isset .Site.Params "twitterusername" -}}
-          <a itemprop="sameAs" href="https://twitter.com/{{ .Site.Params.twitterUsername }}" title="Twitter">Twitter</a>
+          <a itemprop="sameAs" href="https://provably.online/@{{ .Site.Params.twitterUsername }}" title="Fedi">fedi/mastodon</a>
           {{- end}}
 
           {{ if isset .Site.Params "gpg" -}}
